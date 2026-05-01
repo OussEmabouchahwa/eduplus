@@ -2,6 +2,13 @@
 
 EduPulse est une plateforme LMS (Learning Management System) hybride moderne, conçue pour offrir une expérience d'apprentissage fluide et engageante. Alliant technologie et pédagogie, elle permet une gestion simplifiée des cours et un suivi précis de la progression des apprenants.
 
+## 📸 Aperçu
+
+<div align="center">
+  <img src="scrinshouts/login.png" alt="Login Page" width="400">
+  <img src="scrinshouts/register.png" alt="Register Page" width="400">
+</div>
+
 ## 🚀 Caractéristiques
 
 - **Design Premium** : Interface moderne basée sur le Glassmorphism pour une immersion totale.
