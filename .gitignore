@@ -14,7 +14,15 @@
 /.phpunit.cache/
 ###< phpunit/phpunit ###
 
-###> symfony/asset-mapper ###
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
+
+node_modules/
+.env.local
+.env.*.local
+/public/build/
+.idea/
+.vscode/
+.DS_Store
+
