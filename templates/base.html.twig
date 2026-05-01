@@ -1,24 +1,111 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}EduPulse | LMS Hybride{% endblock %}</title>
+    
+    {# Favicon minimaliste #}
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2290%22>⚡</text></svg>">
+    
+    {# 
+       Gestionnaire d'Assets Symfony (ImportMap) 
+       Charge automatiquement Tailwind, Flowbite et tes CSS/JS
+    #}
+    {% block stylesheets %}
+    {# Si tu as compilé vers public/build/app.css #}
+    <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+{% endblock %}
+    {% block javascripts %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+</head>
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
+{# 
+   Le fond (bg-edu-slate) et le texte sont gérés par les classes générées via tailwind.config.js
+   Flexbox est utilisé pour repousser le footer en bas de page naturellement.
+#}
+<body class="bg-edu-slate text-slate-200 min-h-screen flex flex-col font-sans antialiased selection:bg-edu-indigo selection:text-white">
 
-        {% set frankenphpHotReload = app.request.server.get('FRANKENPHP_HOT_RELOAD') %}
-        {% if frankenphpHotReload %}
-        <meta name="frankenphp-hot-reload:url" content="{{ frankenphpHotReload }}">
-        <script src="https://cdn.jsdelivr.net/npm/idiomorph"></script>
-        <script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
-        {% endif %}
-    </head>
-    <body>
+    {# --- HEADER & NAVIGATION (Glassmorphism) --- #}
+    <header class="glass-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                
+                {# Logo EduPulse #}
+                <a href="/" class="flex-shrink-0 flex items-center gap-3 cursor-pointer group">
+                    <img src="{{ asset('images/logo.png') }}" alt="EduPulse Logo" class="h-20 w-auto group-hover:scale-105 transition-transform">
+                    <span class="text-2xl font-bold tracking-tight">
+                        Edu<span class="text-edu-indigo font-light italic">Pulse</span>
+                    </span>
+                </a>
+
+                {# Liens de Navigation (Desktop) #}
+                <nav class="hidden md:flex space-x-8 items-center">
+                    <a href="#" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Dashboard</a>
+                    <a href="#" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Cours</a>
+                    <a href="#" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Discussions</a>
+                </nav>
+
+                {# Actions (Desktop) #}
+                <div class="hidden md:flex items-center gap-4">
+                    {% if app.user %}
+                        <span class="text-sm text-slate-400">Bonjour, <span class="text-white font-medium">{{ app.user.userIdentifier }}</span></span>
+                        <a href="{{ path('app_logout') }}" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">
+                            Déconnexion
+                        </a>
+                    {% else %}
+                        <a href="{{ path('app_register') }}" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">
+                            S'inscrire
+                        </a>
+                        <a href="{{ path('app_login') }}" class="btn-primary">
+                            Connexion
+                        </a>
+                    {% endif %}
+                </div>
+
+                {# Menu Mobile (Hamburger pour Flowbite) #}
+                <div class="md:hidden flex items-center">
+                    <button type="button" class="text-slate-300 hover:text-white focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Ouvrir le menu</span>
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    {# --- CONTENU PRINCIPAL --- #}
+    {# Le flex-grow assure que le <main> prend tout l'espace disponible pour pousser le footer #}
+    <main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative z-10">
+        
+        {# Injection des messages Flash (Succès, Erreurs) #}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="glass-card mb-6 p-4 border-l-4 {% if label == 'success' %}border-green-500{% else %}border-red-500{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        {# Point d'injection pour les templates enfants #}
         {% block body %}{% endblock %}
-    </body>
+        
+    </main>
+
+    {# --- FOOTER --- #}
+    <footer class="border-t border-white/5 bg-black/20 backdrop-blur-sm mt-auto py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
+            <p>&copy; {{ "now"|date("Y") }} EduPulse. Tous droits réservés.</p>
+            <div class="flex space-x-6">
+                <a href="#" class="hover:text-edu-indigo transition-colors">Mentions légales</a>
+                <a href="#" class="hover:text-edu-indigo transition-colors">Support</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
 </html>

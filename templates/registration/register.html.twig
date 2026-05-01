@@ -1,0 +1,70 @@
+{# templates/registration/register.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription - EduPulse{% endblock %}
+
+{% block body %}
+<div class="min-h-screen flex items-center justify-center p-4">
+    
+    <div class="glass-card w-full max-w-lg p-8">
+        
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold mb-2 text-gradient">Rejoignez EduPulse</h1>
+            <p class="text-slate-400 text-sm">Créez votre compte pour commencer à apprendre.</p>
+        </div>
+
+        {# Affichage des erreurs globales du formulaire #}
+        {% if form_errors(registrationForm) %}
+            <div class="mb-4 p-3 rounded bg-red-500/20 border border-red-500/50 text-red-200 text-sm">
+                {{ form_errors(registrationForm) }}
+            </div>
+        {% endif %}
+
+        {{ form_start(registrationForm, {'attr': {'class': 'space-y-5'}}) }}
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div>
+                    {{ form_widget(registrationForm.firstName, {'attr': {'class': 'edu-input', 'placeholder': 'Prénom'}}) }}
+                </div>
+                <div>
+                    {{ form_widget(registrationForm.lastName, {'attr': {'class': 'edu-input', 'placeholder': 'Nom'}}) }}
+                </div>
+            </div>
+
+            <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path></svg>
+                </div>
+                {# On ajoute 'pl-10' pour faire de la place à l'icône sans casser la classe de base #}
+                {{ form_widget(registrationForm.email, {'attr': {'class': 'edu-input pl-10', 'placeholder': 'Adresse email'}}) }}
+            </div>
+
+            <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                </div>
+                {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'edu-input pl-10', 'placeholder': 'Mot de passe (min. 6 caractères)'}}) }}
+            </div>
+
+            <div class="flex items-start">
+                <div class="flex items-center h-5">
+                    {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'w-4 h-4 rounded border-white/20 bg-white/5 text-indigo-500 focus:ring-indigo-500 focus:ring-offset-0 cursor-pointer'}}) }}
+                </div>
+                <label for="{{ registrationForm.agreeTerms.vars.id }}" class="ml-2 text-sm font-medium text-slate-300 cursor-pointer">
+                    J'accepte les <a href="#" class="text-indigo-400 hover:text-indigo-300 hover:underline transition-colors">Conditions d'utilisation</a>
+                </label>
+            </div>
+
+            <button type="submit" class="btn-primary w-full mt-2">
+                S'inscrire
+            </button>
+            
+            <p class="text-sm font-light text-slate-400 text-center mt-6">
+                Déjà un compte ? <a href="{{ path('app_login') }}" class="font-medium text-indigo-400 hover:text-indigo-300 hover:underline transition-colors">Se connecter</a>
+            </p>
+
+        {{ form_end(registrationForm) }}
+    </div>
+    
+</div>
+{% endblock %}

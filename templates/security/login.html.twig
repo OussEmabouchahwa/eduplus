@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion | EduPulse{% endblock %}
+
+{% block body %}
+<div class="flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8 glass-card p-8">
+        <div>
+            <div class="flex justify-center mb-6">
+                <img src="{{ asset('images/logo.png') }}" alt="EduPulse Logo" class="h-33 w-auto">
+            </div>
+            <h2 class="text-center text-3xl font-extrabold text-white tracking-tight">
+                Bon retour sur <span class="text-gradient">EduPulse</span>
+            </h2>
+            <p class="mt-2 text-center text-sm text-slate-400">
+                Ou <a href="{{ path('app_register') }}" class="font-medium text-edu-indigo hover:text-indigo-400 transition-colors">créez votre compte gratuitement</a>
+            </p>
+        </div>
+
+        <form method="post" class="mt-8 space-y-6">
+            {% if error %}
+                <div class="p-4 rounded-lg bg-red-500/20 border border-red-500/50 text-red-200 text-sm">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            {% endif %}
+
+            {% if app.user %}
+                <div class="p-4 rounded-lg bg-indigo-500/20 border border-indigo-500/50 text-slate-200 text-sm text-center">
+                    Vous êtes connecté en tant que <span class="font-bold text-white">{{ app.user.userIdentifier }}</span>.
+                    <br>
+                    <a href="{{ path('app_logout') }}" class="text-edu-indigo hover:underline mt-2 inline-block">Se déconnecter</a>
+                </div>
+            {% else %}
+                <div class="space-y-4">
+                    <div>
+                        <label for="inputEmail" class="block text-sm font-medium text-slate-300 mb-1">Email</label>
+                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="edu-input" autocomplete="email" required autofocus placeholder="nom@exemple.com">
+                    </div>
+                    <div>
+                        <label for="inputPassword" class="block text-sm font-medium text-slate-300 mb-1">Mot de passe</label>
+                        <input type="password" name="password" id="inputPassword" class="edu-input" autocomplete="current-password" required placeholder="••••••••">
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input id="remember_me" name="_remember_me" type="checkbox" class="h-4 w-4 text-edu-indigo focus:ring-edu-indigo border-white/10 rounded bg-white/5">
+                        <label for="remember_me" class="ml-2 block text-sm text-slate-400">
+                            Se souvenir de moi
+                        </label>
+                    </div>
+
+                    <div class="text-sm">
+                        <a href="#" class="font-medium text-edu-indigo hover:text-indigo-400 transition-colors">
+                            Mot de passe oublié ?
+                        </a>
+                    </div>
+                </div>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                <div>
+                    <button type="submit" class="btn-primary w-full py-3 text-lg">
+                        Se connecter
+                    </button>
+                </div>
+            {% endif %}
+        </form>
+    </div>
+</div>
+{% endblock %}
