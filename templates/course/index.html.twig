@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos Cours | EduPulse{% endblock %}
+
+{% block body %}
+<div class="container mx-auto px-4 py-12">
+    <div class="text-center mb-16">
+        <h1 class="text-5xl font-extrabold text-white mb-4 tracking-tight">
+            Explorez nos <span class="text-indigo-500 italic">Formations</span>
+        </h1>
+        <p class="text-slate-400 text-lg max-w-2xl mx-auto">
+            Développez vos compétences avec des cours conçus par des experts et rejoignez une communauté d'apprentissage active.
+        </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        {% for course in courses %}
+            <div class="glass-card group relative overflow-hidden flex flex-col h-full border-indigo-500/10 hover:border-indigo-500/40 hover:shadow-indigo-500/20">
+                {# Image du cours #}
+                <div class="relative h-56 overflow-hidden">
+                    <img src="{{ asset('images/' ~ course.imagePath) }}" 
+                         alt="{{ course.title }}" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60"></div>
+                    <span class="absolute top-4 right-4 bg-indigo-600/90 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-indigo-400/30">
+                        Nouveau
+                    </span>
+                </div>
+
+                {# Contenu de la card #}
+                <div class="p-8 flex-1 flex flex-col">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="h-1 w-8 bg-indigo-500 rounded-full"></div>
+                        <span class="text-xs font-bold text-slate-500 uppercase tracking-tighter">Formation Pro</span>
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-indigo-400 transition-colors">
+                        {{ course.title }}
+                    </h3>
+                    
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6 line-clamp-3">
+                        {{ course.description }}
+                    </p>
+
+                    <div class="mt-auto pt-6 border-t border-slate-700/50 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="h-8 w-8 rounded-full bg-slate-700 flex items-center justify-center text-xs font-bold text-indigo-400 border border-slate-600">
+                                {{ course.teacher.firstName|first }}{{ course.teacher.lastName|first }}
+                            </div>
+                            <span class="text-xs text-slate-400">{{ course.teacher.firstName }} {{ course.teacher.lastName }}</span>
+                        </div>
+                        
+                        <a href="{{ path('app_course_show', {slug: course.slug}) }}" 
+                           class="flex items-center gap-2 text-indigo-400 font-bold text-sm group/link">
+                            Voir plus
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-hover/link:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,8 +1,11 @@
 <?php
+/* c:\Users\ousse\OneDrive\Desktop\edupulse\src\Entity\User.php */
 
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -14,6 +17,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    public const ROLE_ADMIN = 'ROLE_ADMIN';
+    public const ROLE_TEACHER = 'ROLE_TEACHER';
+    public const ROLE_CLIENT = 'ROLE_CLIENT';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -29,10 +36,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private array $roles = [];
 
     #[ORM\Column(length: 255)]
-private ?string $firstName = null;
+    private ?string $firstName = null;
 
-#[ORM\Column(length: 255)]
-private ?string $lastName = null;
+    #[ORM\Column(length: 255)]
+    private ?string $lastName = null;
+
     /**
      * @var string The hashed password
      */
@@ -41,6 +49,24 @@ private ?string $lastName = null;
 
     #[ORM\Column]
     private bool $isVerified = false;
+
+    /**
+     * @var Collection<int, Message>
+     */
+    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'author', orphanRemoval: true)]
+    private Collection $messages;
+
+    /**
+     * @var Collection<int, Course>
+     */
+    #[ORM\ManyToMany(targetEntity: Course::class, mappedBy: 'students')]
+    private Collection $enrolledCourses;
+
+    public function __construct()
+    {
+        $this->messages = new ArrayCollection();
+        $this->enrolledCourses = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -55,65 +81,49 @@ private ?string $lastName = null;
     public function setEmail(string $email): static
     {
         $this->email = $email;
-
         return $this;
     }
+
     public function getFirstName(): ?string
     {
-    return $this->firstName;
+        return $this->firstName;
     }
 
     public function setFirstName(string $firstName): static
     {
-    $this->firstName = $firstName;
-    return $this;
+        $this->firstName = $firstName;
+        return $this;
     }
-public function getLastName(): ?string
-{
-    return $this->lastName;
-}
 
-public function setLastName(string $lastName): static
-{
-    $this->lastName = $lastName;
-    return $this;
-}
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
+    public function setLastName(string $lastName): static
+    {
+        $this->lastName = $lastName;
+        return $this;
+    }
+
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
-
         return array_unique($roles);
     }
 
-    /**
-     * @param list<string> $roles
-     */
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
-
         return $this;
     }
 
-    /**
-     * @see PasswordAuthenticatedUserInterface
-     */
     public function getPassword(): ?string
     {
         return $this->password;
@@ -122,25 +132,18 @@ public function setLastName(string $lastName): static
     public function setPassword(string $password): static
     {
         $this->password = $password;
-
         return $this;
     }
 
-    /**
-     * Ensure the session doesn't contain actual password hashes by CRC32C-hashing them, as supported since Symfony 7.3.
-     */
     public function __serialize(): array
     {
         $data = (array) $this;
         $data["\0".self::class."\0password"] = hash('crc32c', $this->password);
-
         return $data;
     }
 
-    #[\Deprecated]
     public function eraseCredentials(): void
     {
-        // @deprecated, to be removed when upgrading to Symfony 8
     }
 
     public function isVerified(): bool
@@ -151,7 +154,58 @@ public function setLastName(string $lastName): static
     public function setIsVerified(bool $isVerified): static
     {
         $this->isVerified = $isVerified;
+        return $this;
+    }
 
+    /**
+     * @return Collection<int, Message>
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): static
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages->add($message);
+            $message->setAuthor($this);
+        }
+        return $this;
+    }
+
+    public function removeMessage(Message $message): static
+    {
+        if ($this->messages->removeElement($message)) {
+            if ($message->getAuthor() === $this) {
+                $message->setAuthor(null);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Course>
+     */
+    public function getEnrolledCourses(): Collection
+    {
+        return $this->enrolledCourses;
+    }
+
+    public function addEnrolledCourse(Course $course): static
+    {
+        if (!$this->enrolledCourses->contains($course)) {
+            $this->enrolledCourses->add($course);
+            $course->addStudent($this);
+        }
+        return $this;
+    }
+
+    public function removeEnrolledCourse(Course $course): static
+    {
+        if ($this->enrolledCourses->removeElement($course)) {
+            $course->removeStudent($this);
+        }
         return $this;
     }
 }

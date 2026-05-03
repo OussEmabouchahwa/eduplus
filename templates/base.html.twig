@@ -3,19 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}EduPulse | LMS Hybride{% endblock %}</title>
+    <title>{% block title %}EduPulse{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
     
-    {# Favicon minimaliste #}
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2290%22>⚡</text></svg>">
-    
-    {# 
-       Gestionnaire d'Assets Symfony (ImportMap) 
-       Charge automatiquement Tailwind, Flowbite et tes CSS/JS
-    #}
-    {% block stylesheets %}
-    {# Si tu as compilé vers public/build/app.css #}
+    {# C'est cette ligne qui fait le lien avec la compilation Tailwind ! #}
     <link rel="stylesheet" href="{{ asset('build/app.css') }}">
-{% endblock %}
+    
+    {% block stylesheets %}{% endblock %}
     {% block javascripts %}
         {% block importmap %}{{ importmap('app') }}{% endblock %}
     {% endblock %}
@@ -33,7 +27,7 @@
             <div class="flex justify-between items-center h-20">
                 
                 {# Logo EduPulse #}
-                <a href="/" class="flex-shrink-0 flex items-center gap-3 cursor-pointer group">
+                <a href="{{ path('app_home') }}" class="flex-shrink-0 flex items-center gap-3 cursor-pointer group">
                     <img src="{{ asset('images/logo.png') }}" alt="EduPulse Logo" class="h-20 w-auto group-hover:scale-105 transition-transform">
                     <span class="text-2xl font-bold tracking-tight">
                         Edu<span class="text-edu-indigo font-light italic">Pulse</span>
@@ -42,9 +36,15 @@
 
                 {# Liens de Navigation (Desktop) #}
                 <nav class="hidden md:flex space-x-8 items-center">
-                    <a href="#" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Dashboard</a>
-                    <a href="#" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Cours</a>
-                    <a href="#" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Discussions</a>
+                    <a href="{{ path('app_home') }}" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Accueil</a>
+                    <a href="{{ path('app_courses') }}" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Cours</a>
+                    
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_TEACHER') %}
+                        <a href="{{ path('app_dashboard') }}" class="text-sm font-semibold text-indigo-400 hover:text-indigo-300 transition-colors flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
+                            Tableau de bord
+                        </a>
+                    {% endif %}
                 </nav>
 
                 {# Actions (Desktop) #}

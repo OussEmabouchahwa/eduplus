@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Salon de discussion | EduPulse{% endblock %}
+
+{% block body %}
+<div class="container mx-auto max-w-4xl p-4 mt-10">
+    
+    {# Conteneur principal du Chat relié à Stimulus #}
+    <div class="flex flex-col h-[700px] bg-slate-800/40 backdrop-blur-md border border-slate-700/50 rounded-2xl shadow-2xl overflow-hidden" 
+         data-controller="chat"
+         data-chat-course-id-value="{{ courseId }}"
+         data-chat-hub-url-value="{{ mercure('https://edupulse.com/chat/' ~ courseId)|default('http://localhost:3000/.well-known/mercure') }}"
+         data-chat-current-user-value="{{ app.user.userIdentifier }}">
+        
+        {# En-tête du Chat #}
+        <div class="p-5 border-b border-slate-700/50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-between">
+            <h2 class="text-xl font-bold text-white flex items-center gap-3">
+                <span class="relative flex h-3 w-3">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                </span>
+                Chat du cours #{{ courseId }}
+            </h2>
+            <span class="text-xs text-slate-400 bg-slate-800 px-3 py-1 rounded-full border border-slate-700">En direct</span>
+        </div>
+
+        {# Zone d'affichage des messages #}
+        <div data-chat-target="container" class="flex-1 overflow-y-auto p-6 space-y-4 scrollbar-thin scrollbar-thumb-indigo-600 scrollbar-track-transparent">
+            {% for message in messages %}
+                {% set isMe = message.author == app.user %}
+                <div class="flex {{ isMe ? 'justify-end' : 'justify-start' }} animate-fade-in">
+                    <div class="{{ isMe ? 'bg-indigo-600 text-white' : 'bg-slate-700/80 text-slate-200 border border-slate-600/50' }} p-3.5 rounded-2xl max-w-[75%] shadow-lg">
+                        <p class="text-[11px] uppercase font-bold tracking-wider opacity-60 mb-1">
+                            {{ message.author.userIdentifier }}
+                        </p>
+                        <p class="text-sm leading-relaxed">{{ message.content }}</p>
+                        <p class="text-[10px] text-right opacity-40 mt-2">
+                            {{ message.createdAt|date('H:i') }}
+                        </p>
+                    </div>
+                </div>
+            {% else %}
+                <div class="text-center text-slate-500 mt-10 italic">
+                    Aucun message pour le moment. Soyez le premier à écrire !
+                </div>
+            {% endfor %}
+        </div>
+
+        {# Formulaire d'envoi #}
+        <div class="p-4 bg-slate-900/80 border-t border-slate-700/50 backdrop-blur-md">
+            <form class="flex gap-3" data-action="submit->chat#submit">
+                <input type="text" 
+                       data-chat-target="input"
+                       placeholder="Écrivez votre message..." 
+                       autocomplete="off"
+                       class="flex-1 bg-slate-800/50 border border-slate-600 text-white placeholder-slate-400 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all shadow-inner">
+                
+                <button type="submit" class="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 transition-all text-white font-bold flex items-center gap-2 shadow-lg shadow-indigo-600/30">
+                    <span>Envoyer</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                    </svg>
+                </button>
+            </form>
+        </div>
+        
+    </div>
+</div>
+{% endblock %}

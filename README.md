@@ -5,13 +5,25 @@ EduPulse est une plateforme LMS (Learning Management System) hybride moderne, co
 ## 📸 Aperçu
 
 <div align="center">
-  <img src="scrinshouts/login.png" alt="Login Page" width="400">
-  <img src="scrinshouts/register.png" alt="Register Page" width="400">
+  <img src="scrinshouts/landingpage.png" alt="Landing Page" width="800" style="margin-bottom: 20px;">
+  
+  <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;">
+    <img src="scrinshouts/coursesPage.png" alt="Courses Page" width="400">
+    <img src="scrinshouts/messageSection.png" alt="Message Section" width="400">
+  </div>
+  
+  <div style="display: flex; justify-content: center; gap: 10px;">
+    <img src="scrinshouts/login.png" alt="Login Page" width="400">
+    <img src="scrinshouts/register.png" alt="Register Page" width="400">
+  </div>
 </div>
 
 ## 🚀 Caractéristiques
 
-- **Design Premium** : Interface moderne basée sur le Glassmorphism pour une immersion totale.
+- **Design Premium & Sidebar Pro** : Interface moderne basée sur le Glassmorphism pour une immersion totale, avec un dashboard exclusif doté d'une barre latérale pro.
+- **Tableaux de Bord Spécialisés** : Vues sur-mesure selon le rôle (Professeur, Administrateur, Étudiant) avec statistiques en temps réel.
+- **Chat en Temps Réel** : Système de discussion de groupe par cours propulsé par **Symfony Mercure**.
+- **Gestion des Inscriptions** : Inscription dynamique des étudiants aux cours avec relation Many-to-Many.
 - **Architecture Symfony 7** : Propulsé par la puissance et la robustesse du framework Symfony.
 - **Tailwind CSS v4** : Un stylage ultra-rapide et personnalisable.
 - **Responsive Design** : Optimisé pour tous les écrans (Desktop, Tablette, Mobile).

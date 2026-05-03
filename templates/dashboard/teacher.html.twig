@@ -1,0 +1,66 @@
+{% extends 'base_dashboard.html.twig' %}
+
+{% block title %}EduPulse | Tableau de Bord Enseignant{% endblock %}
+{% block page_title %}Vue d'ensemble Formateur{% endblock %}
+
+{% block body %}
+<div class="space-y-8 animate-fade-in">
+    {# Header Section #}
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+            <h1 class="text-3xl font-bold text-white tracking-tight">Bonjour, Prof. {{ app.user.lastName }} 👋</h1>
+            <p class="text-slate-400 mt-1">Gérez vos cours et interagissez avec vos étudiants.</p>
+        </div>
+        <div class="flex gap-4">
+            <div class="glass-card px-6 py-3 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                </div>
+                <div>
+                    <div class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Total Étudiants</div>
+                    <div class="text-xl font-bold text-white">
+                        {% set totalStudents = 0 %}
+                        {% for course in courses %}
+                            {% set totalStudents = totalStudents + course.students|length %}
+                        {% endfor %}
+                        {{ totalStudents }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# Courses Grid #}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for course in courses %}
+            <div class="glass-card overflow-hidden group">
+                <div class="relative h-40">
+                    <img src="{{ asset('images/' ~ course.imagePath) }}" alt="{{ course.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-4 left-4">
+                        <span class="px-2 py-1 rounded bg-indigo-500 text-[10px] font-bold text-white uppercase tracking-widest">{{ course.students|length }} Étudiants</span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-white mb-2 line-clamp-1">{{ course.title }}</h3>
+                    <p class="text-slate-400 text-sm mb-6 line-clamp-2">{{ course.description }}</p>
+                    
+                    <div class="flex items-center justify-between gap-3">
+                        <a href="{{ path('app_chat_room', {'courseId': course.id}) }}" class="flex-grow btn-primary py-2 text-center text-sm flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                            Discussion Groupe
+                        </a>
+                        <a href="{{ path('app_course_show', {'slug': course.slug}) }}" class="p-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-slate-300" title="Voir le cours">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-span-full py-20 text-center glass-card">
+                <p class="text-slate-400">Vous n'avez pas encore créé de cours.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
