@@ -17,20 +17,63 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class ChatController extends AbstractController
 {
     #[Route('/chat', name: 'app_chat')]
-    public function default(): \Symfony\Component\HttpFoundation\Response
+    public function default(\App\Repository\CourseRepository $courseRepo): \Symfony\Component\HttpFoundation\Response
     {
-        // Redirige vers un salon par défaut (ex: cours #1)
-        return $this->redirectToRoute('app_chat_room', ['courseId' => 1]);
+        $user = $this->getUser();
+        $roles = $user->getRoles();
+        
+        if (in_array('ROLE_ADMIN', $roles)) {
+            $courses = $courseRepo->findAll();
+        } elseif (in_array('ROLE_TEACHER', $roles)) {
+            $courses = $courseRepo->findBy(['teacher' => $user]);
+        } else {
+            $courses = $user->getEnrolledCourses()->toArray();
+        }
+
+        if (count($courses) > 0) {
+            $firstCourse = reset($courses);
+            return $this->redirectToRoute('app_chat_room', ['courseId' => $firstCourse->getId()]);
+        }
+
+        $this->addFlash('error', 'Vous n\'avez accès à aucun salon de discussion pour le moment.');
+        return $this->redirectToRoute('app_dashboard');
     }
 
     #[Route('/chat/{courseId}', name: 'app_chat_room')]
-    public function index(int $courseId, MessageRepository $messageRepo)
+    public function index(int $courseId, MessageRepository $messageRepo, \App\Repository\CourseRepository $courseRepo)
     {
+        $user = $this->getUser();
+        $roles = $user->getRoles();
+        
+        if (in_array('ROLE_ADMIN', $roles)) {
+            $courses = $courseRepo->findAll();
+        } elseif (in_array('ROLE_TEACHER', $roles)) {
+            $courses = $courseRepo->findBy(['teacher' => $user]);
+        } else {
+            $courses = $user->getEnrolledCourses();
+        }
+
+        $activeCourse = $courseRepo->find($courseId);
+        
+        if (!$activeCourse) {
+            throw $this->createNotFoundException('Le cours demandé n\'existe pas.');
+        }
+
+        // Vérification des accès (optionnelle mais recommandée)
+        $hasAccess = in_array('ROLE_ADMIN', $roles) 
+            || (in_array('ROLE_TEACHER', $roles) && $activeCourse->getTeacher() === $user)
+            || $user->getEnrolledCourses()->contains($activeCourse);
+
+        if (!$hasAccess) {
+            throw $this->createAccessDeniedException('Vous n\'avez pas accès à ce salon.');
+        }
+
         // On récupère les 50 derniers messages de ce cours
         $messages = $messageRepo->findBy(['courseId' => $courseId], ['createdAt' => 'ASC'], 50);
 
         return $this->render('chat/index.html.twig', [
-            'courseId' => $courseId,
+            'activeCourse' => $activeCourse,
+            'courses' => $courses,
             'messages' => $messages,
         ]);
     }

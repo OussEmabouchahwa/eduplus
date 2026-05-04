@@ -22,7 +22,7 @@ class Course
     #[ORM\Column(type: 'text')]
     private ?string $description = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $imagePath = null;
 
     #[ORM\Column(type: 'text', nullable: true)]
@@ -77,7 +77,7 @@ class Course
         return $this->imagePath;
     }
 
-    public function setImagePath(string $imagePath): self
+    public function setImagePath(?string $imagePath): self
     {
         $this->imagePath = $imagePath;
         return $this;

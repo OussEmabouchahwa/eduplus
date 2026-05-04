@@ -1,0 +1,131 @@
+{% extends 'base_dashboard.html.twig' %}
+{% block title %}{{ course.title }} | Gestion{% endblock %}
+{% block page_title %}Gestion du cours{% endblock %}
+
+{% block body %}
+<div class="animate-fade-in space-y-8 max-w-5xl">
+
+    <a href="{{ path('app_admin_course_index') }}" style="display:inline-flex;align-items:center;gap:8px;color:#94a3b8;font-size:14px;text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#f1f5f9'" onmouseout="this.style.color='#94a3b8'">
+        ← Retour aux cours
+    </a>
+
+    {# Course Header Card #}
+    <div style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.07);border-radius:20px;overflow:hidden;backdrop-filter:blur(16px)">
+        <div style="display:flex;gap:0;align-items:stretch">
+            <div style="width:220px;flex-shrink:0;background:linear-gradient(135deg,rgba(99,102,241,0.3),rgba(6,182,212,0.2));position:relative;min-height:160px;overflow:hidden">
+                {% if course.imagePath %}
+                    <img src="{{ asset('uploads/courses/' ~ course.imagePath) }}" alt="" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0.85" onerror="this.style.display='none'">
+                {% endif %}
+            </div>
+            <div style="padding:24px 28px;flex:1">
+                <h1 style="font-size:22px;font-weight:800;color:#f1f5f9;margin:0 0 8px">{{ course.title }}</h1>
+                <p style="color:#64748b;font-size:13px;margin:0 0 16px;line-height:1.5">{{ course.description|slice(0, 120) }}...</p>
+                <div style="display:flex;gap:12px;flex-wrap:wrap">
+                    <span style="padding:4px 12px;border-radius:8px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);color:#34d399;font-size:12px;font-weight:700">
+                        👥 {{ course.students|length }} étudiant(s)
+                    </span>
+                    {% if course.teacher %}
+                    <span style="padding:4px 12px;border-radius:8px;background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.2);color:#a5b4fc;font-size:12px;font-weight:700">
+                        🎓 {{ course.teacher.fullName }}
+                    </span>
+                    {% else %}
+                    <span style="padding:4px 12px;border-radius:8px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);color:#f87171;font-size:12px;font-weight:700">
+                        ⚠ Aucun formateur
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+
+        {# ─── ASSIGN TEACHER ─────────────────────────────── #}
+        <div style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.07);border-radius:20px;overflow:hidden;backdrop-filter:blur(16px)">
+            <div style="padding:20px 24px;border-bottom:1px solid rgba(255,255,255,0.06)">
+                <h2 style="font-size:16px;font-weight:700;color:#f1f5f9;margin:0">🎓 Assigner un Formateur</h2>
+            </div>
+            <div style="padding:24px">
+                {# Current Teacher #}
+                {% if course.teacher %}
+                <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.2);border-radius:12px;margin-bottom:20px">
+                    <div style="width:40px;height:40px;border-radius:50%;background:#1e293b;display:flex;align-items:center;justify-content:center;font-weight:700;color:#818cf8;overflow:hidden;position:relative;flex-shrink:0">
+                        {% if course.teacher.profilePhoto %}
+                            <img src="{{ asset('uploads/profiles/' ~ course.teacher.profilePhoto) }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" onerror="this.style.display='none'">
+                        {% endif %}
+                        {{ course.teacher.firstName|first }}
+                    </div>
+                    <div>
+                        <div style="font-weight:700;color:#f1f5f9;font-size:14px">{{ course.teacher.fullName }}</div>
+                        <div style="font-size:11px;color:#64748b">Formateur actuel</div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <form method="post" action="{{ path('app_admin_course_assign_teacher', {id: course.id}) }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token('assign_teacher' ~ course.id) }}">
+                    <div style="margin-bottom:16px">
+                        <label style="display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#64748b;margin-bottom:8px">Sélectionner un formateur</label>
+                        <select name="teacher_id" style="width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:10px 14px;color:#f1f5f9;font-size:14px;outline:none;cursor:pointer">
+                            <option value="" style="background:#1e293b">— Retirer le formateur —</option>
+                            {% for teacher in teachers %}
+                                <option value="{{ teacher.id }}" style="background:#1e293b" {% if course.teacher and course.teacher.id == teacher.id %}selected{% endif %}>
+                                    {{ teacher.fullName }} ({{ teacher.email }})
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" style="width:100%;padding:11px;border-radius:10px;background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;font-size:13px;font-weight:700;border:none;cursor:pointer;transition:opacity 0.2s" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+                        ✅ Confirmer l'assignation
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        {# ─── ENROLL STUDENTS ────────────────────────────── #}
+        <div style="background:rgba(15,23,42,0.7);border:1px solid rgba(255,255,255,0.07);border-radius:20px;overflow:hidden;backdrop-filter:blur(16px)">
+            <div style="padding:20px 24px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between">
+                <h2 style="font-size:16px;font-weight:700;color:#f1f5f9;margin:0">👤 Inscrire des Étudiants</h2>
+                <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.2);color:#22d3ee">{{ course.students|length }} inscrits</span>
+            </div>
+            <div style="padding:16px 24px;max-height:420px;overflow-y:auto">
+                {% for student in students %}
+                    {% set isEnrolled = course.students.contains(student) %}
+                    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04)">
+                        <div style="display:flex;align-items:center;gap:10px">
+                            <div style="width:34px;height:34px;border-radius:50%;background:#1e293b;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#94a3b8;overflow:hidden;position:relative;flex-shrink:0;border:1px solid rgba(255,255,255,0.08)">
+                                {% if student.profilePhoto %}
+                                    <img src="{{ asset('uploads/profiles/' ~ student.profilePhoto) }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" onerror="this.style.display='none'">
+                                {% endif %}
+                                {{ student.firstName|first }}{{ student.lastName|first }}
+                            </div>
+                            <div>
+                                <div style="font-size:13px;font-weight:600;color:#f1f5f9">{{ student.fullName }}</div>
+                                <div style="font-size:11px;color:#475569">{{ student.email }}</div>
+                            </div>
+                        </div>
+                        {% if isEnrolled %}
+                            <form method="post" action="{{ path('app_admin_course_unenroll', {id: course.id, studentId: student.id}) }}" onsubmit="return confirm('Retirer cet étudiant ?')">
+                                <input type="hidden" name="_token" value="{{ csrf_token('unenroll' ~ course.id ~ student.id) }}">
+                                <button type="submit" style="padding:5px 12px;border-radius:8px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);color:#f87171;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.2s" onmouseover="this.style.background='rgba(239,68,68,0.25)'" onmouseout="this.style.background='rgba(239,68,68,0.1)'">
+                                    ✕ Retirer
+                                </button>
+                            </form>
+                        {% else %}
+                            <form method="post" action="{{ path('app_admin_course_enroll', {id: course.id, studentId: student.id}) }}">
+                                <input type="hidden" name="_token" value="{{ csrf_token('enroll' ~ course.id ~ student.id) }}">
+                                <button type="submit" style="padding:5px 12px;border-radius:8px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);color:#34d399;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.2s" onmouseover="this.style.background='rgba(16,185,129,0.25)'" onmouseout="this.style.background='rgba(16,185,129,0.1)'">
+                                    + Inscrire
+                                </button>
+                            </form>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div style="text-align:center;padding:40px;color:#475569;font-size:13px">Aucun étudiant disponible</div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

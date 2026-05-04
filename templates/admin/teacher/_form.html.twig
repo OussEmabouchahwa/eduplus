@@ -1,0 +1,41 @@
+{{ form_start(form, {'attr': {'class': 'space-y-6', 'novalidate': 'novalidate'}}) }}
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+            {{ form_label(form.firstName, null, {'label_attr': {'class': 'block text-sm font-medium text-slate-300 mb-2'}}) }}
+            {{ form_widget(form.firstName, {'attr': {'class': 'w-full bg-slate-800/50 border border-slate-600 text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all shadow-inner'}}) }}
+            <div class="text-red-400 text-xs mt-1">{{ form_errors(form.firstName) }}</div>
+        </div>
+
+        <div>
+            {{ form_label(form.lastName, null, {'label_attr': {'class': 'block text-sm font-medium text-slate-300 mb-2'}}) }}
+            {{ form_widget(form.lastName, {'attr': {'class': 'w-full bg-slate-800/50 border border-slate-600 text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all shadow-inner'}}) }}
+            <div class="text-red-400 text-xs mt-1">{{ form_errors(form.lastName) }}</div>
+        </div>
+    </div>
+
+    <div>
+        {{ form_label(form.email, null, {'label_attr': {'class': 'block text-sm font-medium text-slate-300 mb-2'}}) }}
+        {{ form_widget(form.email, {'attr': {'class': 'w-full bg-slate-800/50 border border-slate-600 text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all shadow-inner'}}) }}
+        <div class="text-red-400 text-xs mt-1">{{ form_errors(form.email) }}</div>
+    </div>
+
+    <div>
+        {{ form_label(form.plainPassword, null, {'label_attr': {'class': 'block text-sm font-medium text-slate-300 mb-2'}}) }}
+        {{ form_widget(form.plainPassword, {'attr': {'class': 'w-full bg-slate-800/50 border border-slate-600 text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all shadow-inner'}}) }}
+        <div class="text-red-400 text-xs mt-1">{{ form_errors(form.plainPassword) }}</div>
+    </div>
+
+    <div>
+        {{ form_label(form.profilePhotoFile, null, {'label_attr': {'class': 'block text-sm font-medium text-slate-300 mb-2'}}) }}
+        {{ form_widget(form.profilePhotoFile, {'attr': {'class': 'w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-600 hover:file:bg-indigo-100 transition-all'}}) }}
+        <div class="text-red-400 text-xs mt-1">{{ form_errors(form.profilePhotoFile) }}</div>
+    </div>
+
+    <div class="pt-4 flex justify-end">
+        <button class="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl transition-all shadow-lg shadow-indigo-500/20">
+            {{ button_label|default('Créer Formateur') }}
+        </button>
+    </div>
+
+{{ form_end(form) }}

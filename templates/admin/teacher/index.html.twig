@@ -1,0 +1,56 @@
+{% extends 'base_dashboard.html.twig' %}
+
+{% block title %}EduPulse | Gestion des Formateurs{% endblock %}
+{% block page_title %}Formateurs{% endblock %}
+
+{% block body %}
+<div class="space-y-6 animate-fade-in">
+    <div class="flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-white">Liste des Formateurs</h1>
+        <a href="{{ path('app_admin_teacher_new') }}" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl transition-all shadow-lg shadow-indigo-500/20 flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+            Nouveau Formateur
+        </a>
+    </div>
+
+    <div class="glass-card overflow-hidden">
+        <table class="w-full text-left border-collapse">
+            <thead>
+                <tr class="bg-white/5 text-slate-400 text-xs uppercase tracking-wider">
+                    <th class="px-6 py-4 font-semibold">Profil</th>
+                    <th class="px-6 py-4 font-semibold">Nom</th>
+                    <th class="px-6 py-4 font-semibold">Email</th>
+                    <th class="px-6 py-4 font-semibold text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5">
+            {% for teacher in teachers %}
+                <tr class="hover:bg-white/5 transition-colors">
+                    <td class="px-6 py-4">
+                        {% if teacher.profilePhoto %}
+                            <img src="{{ asset('uploads/profiles/' ~ teacher.profilePhoto) }}" alt="Photo" class="w-10 h-10 rounded-full object-cover border border-white/10">
+                        {% else %}
+                            <div class="w-10 h-10 rounded-full bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 font-bold uppercase">
+                                {{ teacher.firstName|first }}{{ teacher.lastName|first }}
+                            </div>
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-4 text-white font-medium">{{ teacher.firstName }} {{ teacher.lastName }}</td>
+                    <td class="px-6 py-4 text-slate-400 text-sm">{{ teacher.email }}</td>
+                    <td class="px-6 py-4 flex justify-end gap-3">
+                        <a href="{{ path('app_admin_teacher_edit', {'id': teacher.id}) }}" class="p-2 text-indigo-400 hover:text-indigo-300 hover:bg-indigo-500/10 rounded-lg transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                        </a>
+                        {{ include('admin/teacher/_delete_form.html.twig') }}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4" class="px-6 py-8 text-center text-slate-500 italic">Aucun formateur trouvé.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

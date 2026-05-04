@@ -48,6 +48,12 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
+        $roles = $token->getRoleNames();
+
+        if (in_array('ROLE_ADMIN', $roles) || in_array('ROLE_TEACHER', $roles)) {
+            return new RedirectResponse($this->urlGenerator->generate('app_dashboard'));
+        }
+
         return new RedirectResponse($this->urlGenerator->generate('app_courses'));
     }
 
