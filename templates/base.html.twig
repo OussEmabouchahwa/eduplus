@@ -3,109 +3,276 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}EduPulse{% endblock %}</title>
+    <title>{% block title %}EduPulse | Console{% endblock %}</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
     
-    {# C'est cette ligne qui fait le lien avec la compilation Tailwind ! #}
     <link rel="stylesheet" href="{{ asset('build/app.css') }}">
     
-    {% block stylesheets %}{% endblock %}
     {% block javascripts %}
         {% block importmap %}{{ importmap('app') }}{% endblock %}
+        <style>
+            /* Guarantee sidebar and main layout regardless of Tailwind compiler state */
+            body.dashboard-layout {
+                display: flex !important;
+                flex-direction: row !important;
+                width: 100vw;
+                height: 100vh;
+                overflow: hidden;
+            }
+            #sidebar {
+                width: 18rem; /* Élargi à 288px pour un look plus Pro */
+                flex-shrink: 0;
+                position: relative;
+                z-index: 50;
+                transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                height: 100%;
+                overflow-y: auto;
+            }
+            #main-content {
+                flex: 1 1 0%;
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                overflow-y: auto;
+                min-width: 0;
+            }
+            @media (max-width: 768px) {
+                #sidebar {
+                    position: fixed;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    transform: translateX(-100%);
+                }
+                #sidebar.open {
+                    transform: translateX(0);
+                }
+            }
+        </style>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const toggles = document.querySelectorAll('.menu-toggle');
+                const sidebar = document.getElementById('sidebar');
+                const overlay = document.getElementById('mobile-overlay');
+
+                toggles.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        sidebar.classList.toggle('open');
+                        overlay.classList.toggle('hidden');
+                        overlay.classList.toggle('opacity-0');
+                    });
+                });
+            });
+        </script>
     {% endblock %}
 </head>
 
-{# 
-   Le fond (bg-edu-slate) et le texte sont gérés par les classes générées via tailwind.config.js
-   Flexbox est utilisé pour repousser le footer en bas de page naturellement.
-#}
-<body class="bg-edu-slate text-slate-200 min-h-screen flex flex-col font-sans antialiased selection:bg-edu-indigo selection:text-white">
+<body class="dashboard-layout bg-edu-slate text-slate-200 h-screen overflow-hidden flex font-sans antialiased selection:bg-edu-indigo selection:text-white">
 
-    {# --- HEADER & NAVIGATION (Glassmorphism) --- #}
-    <header class="glass-nav">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
+    <aside id="sidebar" class="bg-slate-900/95 backdrop-blur-2xl border-r border-white/5 flex flex-col shadow-2xl">
+        
+        {# Logo Area - Salla7na l class "h-" l "h-24" #}
+        <div class="h-24 flex items-center justify-between px-8 border-b border-white/5">
+            <a href="{{ path('app_home') }}" class="flex items-center gap-4 cursor-pointer group">
+                <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center group-hover:scale-105 transition-transform shadow-lg">
+                    <img src="{{ asset('images/logo.png') }}" alt="EduPulse Logo" class="w-8 h-8 object-contain">
+                </div>
+                <span class="text-2xl font-bold tracking-tight text-white">
+                    Edu<span class="text-indigo-400 font-light italic">Pulse</span>
+                </span>
+            </a>
+            {# Bouton de fermeture sur mobile #}
+            <button class="menu-toggle md:hidden p-2 text-slate-400 hover:text-white rounded-xl hover:bg-white/5 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+
+        {# Navigation Links #}
+        <nav class="flex-1 py-8 px-5 space-y-12">
+            
+            {# Section 1: Principal #}
+            <div class="space-y-4">
+                <div class="text-xs font-black text-slate-500 uppercase tracking-widest mb-5 px-4">Principal</div>
                 
-                {# Logo EduPulse #}
-                <a href="{{ path('app_home') }}" class="flex-shrink-0 flex items-center gap-3 cursor-pointer group">
-                    <img src="{{ asset('images/logo.png') }}" alt="EduPulse Logo" class="h-20 w-auto group-hover:scale-105 transition-transform">
-                    <span class="text-2xl font-bold tracking-tight">
-                        Edu<span class="text-edu-indigo font-light italic">Pulse</span>
-                    </span>
+                {# Baddalna gap-4 b gap-6 fi les boutons lkol bech teb3ed l icone 3al text #}
+                <a href="{{ path('app_dashboard') }}" class="flex items-center justify-between px-4 py-3.5 rounded-2xl {% if app.request.attributes.get('_route') starts with 'app_dashboard' %}bg-indigo-500/10 text-indigo-400 font-bold shadow-[inset_4px_0_0_0_rgba(99,102,241,1)]{% else %}text-slate-400 hover:bg-white/5 hover:text-slate-200 font-semibold{% endif %} transition-all group">
+                    <div class="flex items-center gap-6">
+                        <div class="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110 duration-300 {% if app.request.attributes.get('_route') starts with 'app_dashboard' %}bg-indigo-500/20{% else %}bg-slate-800/50 group-hover:bg-slate-700/50{% endif %}">
+                            <img src="{{ asset('icons/Minimalist_house_icon.png') }}" alt="Dashboard" class="w-6 h-6 object-contain drop-shadow-lg">
+                        </div>
+                        <span class="text-[15px] tracking-wide">Tableau de bord</span>
+                    </div>
                 </a>
 
-                {# Liens de Navigation (Desktop) #}
-                <nav class="hidden md:flex space-x-8 items-center">
-                    <a href="{{ path('app_home') }}" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Accueil</a>
-                    <a href="{{ path('app_courses') }}" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Cours</a>
-                    
-                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_TEACHER') %}
-                        <a href="{{ path('app_dashboard') }}" class="text-sm font-semibold text-indigo-400 hover:text-indigo-300 transition-colors flex items-center gap-2">
-                            <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
-                            Tableau de bord
-                        </a>
-                    {% endif %}
-                </nav>
+                <a href="{{ path('app_courses') }}" class="flex items-center justify-between px-4 py-3.5 rounded-2xl {% if app.request.attributes.get('_route') starts with 'app_courses' %}bg-indigo-500/10 text-indigo-400 font-bold shadow-[inset_4px_0_0_0_rgba(99,102,241,1)]{% else %}text-slate-400 hover:bg-white/5 hover:text-slate-200 font-semibold{% endif %} transition-all group">
+                    <div class="flex items-center gap-6">
+                        <div class="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110 duration-300 {% if app.request.attributes.get('_route') starts with 'app_courses' %}bg-indigo-500/20{% else %}bg-slate-800/50 group-hover:bg-slate-700/50{% endif %}">
+                            <img src="{{ asset('icons/coursecatloge-.png') }}" alt="Catalogue" class="w-6 h-6 object-contain drop-shadow-lg">
+                        </div>
+                        <span class="text-[15px] tracking-wide">Catalogue Cours</span>
+                    </div>
+                </a>
 
-                {# Actions (Desktop) #}
-                <div class="hidden md:flex items-center gap-4">
-                    {% if app.user %}
-                        <span class="text-sm text-slate-400">Bonjour, <span class="text-white font-medium">{{ app.user.userIdentifier }}</span></span>
-                        <a href="{{ path('app_logout') }}" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">
-                            Déconnexion
-                        </a>
-                    {% else %}
-                        <a href="{{ path('app_register') }}" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">
-                            S'inscrire
-                        </a>
-                        <a href="{{ path('app_login') }}" class="btn-primary">
-                            Connexion
-                        </a>
-                    {% endif %}
-                </div>
+                <a href="{{ path('app_chat') }}" class="flex items-center justify-between px-4 py-3.5 rounded-2xl text-slate-400 hover:bg-white/5 hover:text-slate-200 font-semibold transition-all group">
+                    <div class="flex items-center gap-6">
+                        <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-slate-800/50 group-hover:bg-slate-700/50 flex items-center justify-center transition-transform group-hover:scale-110 duration-300">
+                            <img src="{{ asset('icons/messagesSection.png') }}" alt="Messages" class="w-6 h-6 object-contain drop-shadow-lg">
+                        </div>
+                        <span class="text-[15px] tracking-wide">Messages</span>
+                    </div>
+                    <span class="bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 text-xs font-bold px-3 py-1 rounded-full">Chat</span>
+                </a>
 
-                {# Menu Mobile (Hamburger pour Flowbite) #}
-                <div class="md:hidden flex items-center">
-                    <button type="button" class="text-slate-300 hover:text-white focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
-                        <span class="sr-only">Ouvrir le menu</span>
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
-
+                <a href="{{ path('app_profile') }}" class="flex items-center justify-between px-4 py-3.5 rounded-2xl {% if app.request.attributes.get('_route') == 'app_profile' %}bg-indigo-500/10 text-indigo-400 font-bold shadow-[inset_4px_0_0_0_rgba(99,102,241,1)]{% else %}text-slate-400 hover:bg-white/5 hover:text-slate-200 font-semibold{% endif %} transition-all group">
+                    <div class="flex items-center gap-6">
+                        <div class="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110 duration-300 {% if app.request.attributes.get('_route') == 'app_profile' %}bg-indigo-500/20{% else %}bg-slate-800/50 group-hover:bg-slate-700/50{% endif %}">
+                            <img src="{{ asset('icons/authntification.png') }}" alt="Profil" class="w-6 h-6 object-contain drop-shadow-lg">
+                        </div>
+                        <span class="text-[15px] tracking-wide">Mon Profil</span>
+                    </div>
+                </a>
             </div>
-        </div>
-    </header>
 
-    {# --- CONTENU PRINCIPAL --- #}
-    {# Le flex-grow assure que le <main> prend tout l'espace disponible pour pousser le footer #}
-    <main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative z-10">
+            {% if is_granted('ROLE_ADMIN') %}
+            {# Section 2: Administration #}
+            <div class="space-y-4">
+                <div class="text-xs font-black text-slate-500 uppercase tracking-widest mb-5 px-4">Administration</div>
+                
+                <a href="{{ path('app_admin_user_index') }}" class="flex items-center justify-between px-4 py-3.5 rounded-2xl {% if app.request.attributes.get('_route') starts with 'app_admin_user' %}bg-cyan-500/10 text-cyan-400 font-bold shadow-[inset_4px_0_0_0_rgba(6,182,212,1)]{% else %}text-slate-400 hover:bg-white/5 hover:text-slate-200 font-semibold{% endif %} transition-all group">
+                    <div class="flex items-center gap-6">
+                        <div class="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110 duration-300 {% if app.request.attributes.get('_route') starts with 'app_admin_user' %}bg-cyan-500/20{% else %}bg-slate-800/50 group-hover:bg-slate-700/50{% endif %}">
+                            <img src="{{ asset('icons/Group_of_users_icon.png') }}" alt="Utilisateurs" class="w-6 h-6 object-contain drop-shadow-lg">
+                        </div>
+                        <span class="text-[15px] tracking-wide">Utilisateurs</span>
+                    </div>
+                </a>
+
+                <a href="{{ path('app_admin_teacher_index') }}" class="flex items-center justify-between px-4 py-3.5 rounded-2xl {% if app.request.attributes.get('_route') starts with 'app_admin_teacher' %}bg-emerald-500/10 text-emerald-400 font-bold shadow-[inset_4px_0_0_0_rgba(16,185,129,1)]{% else %}text-slate-400 hover:bg-white/5 hover:text-slate-200 font-semibold{% endif %} transition-all group">
+                    <div class="flex items-center gap-6">
+                        <div class="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110 duration-300 {% if app.request.attributes.get('_route') starts with 'app_admin_teacher' %}bg-emerald-500/20{% else %}bg-slate-800/50 group-hover:bg-slate-700/50{% endif %}">
+                            <img src="{{ asset('icons/teatcherr.png') }}" alt="Formateurs" class="w-6 h-6 object-contain drop-shadow-lg">
+                        </div>
+                        <span class="text-[15px] tracking-wide">Formateurs</span>
+                    </div>
+                </a>
+
+                <a href="{{ path('app_admin_course_index') }}" class="flex items-center justify-between px-4 py-3.5 rounded-2xl {% if app.request.attributes.get('_route') starts with 'app_admin_course' %}bg-purple-500/10 text-purple-400 font-bold shadow-[inset_4px_0_0_0_rgba(168,85,247,1)]{% else %}text-slate-400 hover:bg-white/5 hover:text-slate-200 font-semibold{% endif %} transition-all group">
+                    <div class="flex items-center gap-6">
+                        <div class="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110 duration-300 {% if app.request.attributes.get('_route') starts with 'app_admin_course' %}bg-purple-500/20{% else %}bg-slate-800/50 group-hover:bg-slate-700/50{% endif %}">
+                            <img src="{{ asset('icons/Library_and_Books_icon.png') }}" alt="Cours" class="w-6 h-6 object-contain drop-shadow-lg">
+                        </div>
+                        <span class="text-[15px] tracking-wide">Cours</span>
+                    </div>
+                </a>
+            </div>
+            {% endif %}
+            
+        </nav>
+    </aside>
+
+    {# --- MAIN CONTENT --- #}
+    <main id="main-content" class="bg-edu-slate relative z-10">
         
-        {# Injection des messages Flash (Succès, Erreurs) #}
-        {% for label, messages in app.flashes %}
-            {% for message in messages %}
-                <div class="glass-card mb-6 p-4 border-l-4 {% if label == 'success' %}border-green-500{% else %}border-red-500{% endif %}">
-                    {{ message }}
+        {# Topbar inside dashboard #}
+        <header class="h-24 border-b border-white/5 bg-slate-900/80 backdrop-blur-xl sticky top-0 z-30 flex items-center justify-between px-6 md:px-10">
+            <div class="flex items-center gap-5">
+                {# Menu Burger Mobile #}
+                <button class="menu-toggle md:hidden p-3 bg-white/5 text-slate-300 hover:text-white rounded-xl hover:bg-white/10 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+                <h2 class="text-xl font-black text-white hidden xl:block flex-shrink-0 tracking-tight">{% block page_title %}Tableau de Bord{% endblock %}</h2>
+                
+                {# Central Search Bar - Premium #}
+                <div class="flex-1 flex justify-center px-4 md:px-12">
+                    <div class="w-full max-w-2xl relative group">
+                        <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                            <img src="{{ asset('icons/Search.png') }}" alt="Search" class="w-5 h-5 object-contain opacity-40 group-focus-within:opacity-100 transition-opacity">
+                        </div>
+                        <input type="text" 
+                               placeholder="Rechercher des cours, des étudiants..." 
+                               class="block w-full bg-slate-900/60 border border-white/10 rounded-2xl py-4 pl-14 pr-5 text-[15px] text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 focus:bg-slate-900 transition-all shadow-inner backdrop-blur-md">
+                    </div>
                 </div>
-            {% endfor %}
-        {% endfor %}
+            </div>
+            
+            {# User Profile in Topbar #}
+            <div class="flex items-center gap-8">
+                {# Notifications #}
+                <button class="relative p-3 bg-white/5 text-slate-400 hover:text-white hover:bg-white/10 rounded-2xl transition-all group">
+                    <span class="absolute top-2 right-2 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-slate-900 z-10 animate-pulse"></span>
+                    <img src="{{ asset('icons/Notification.png') }}" alt="Notifications" class="w-6 h-6 object-contain group-hover:scale-110 transition-transform">
+                </button>
+                
+                {# Profile Menu #}
+                <div class="flex items-center gap-4 pl-8 border-l border-white/10">
+                    <div class="text-right hidden md:block">
+                        <p class="text-[15px] font-bold text-white leading-tight">{{ app.user.firstName }} {{ app.user.lastName }}</p>
+                        <p class="text-xs text-indigo-400 font-semibold mt-0.5">{% if is_granted('ROLE_ADMIN') %}Administrateur{% elseif is_granted('ROLE_TEACHER') %}Formateur{% else %}Étudiant{% endif %}</p>
+                    </div>
+                    
+                    <div class="relative group">
+                        <div class="flex items-center gap-3 cursor-pointer py-2">
+                            <div class="w-12 h-12 rounded-2xl border-2 border-indigo-500/40 overflow-hidden shadow-xl shadow-indigo-500/20 transition-transform group-hover:scale-105 group-hover:border-indigo-400">
+                                {% if app.user.profilePhoto %}
+                                    <img src="{{ asset('uploads/profiles/' ~ app.user.profilePhoto) }}" alt="Profile Photo" class="w-full h-full object-cover">
+                                {% else %}
+                                    <div class="w-full h-full bg-slate-800 flex items-center justify-center text-slate-300 font-black uppercase text-lg tracking-wider">
+                                        {{ app.user.firstName|first }}{{ app.user.lastName|first }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <svg class="w-5 h-5 text-slate-500 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                        
+                        {# Dropdown Menu #}
+                        <div class="absolute right-0 top-full w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-3 group-hover:translate-y-1 z-50">
+                            <div class="mt-2 bg-slate-900/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden p-2">
+                                <div class="px-5 py-4 border-b border-white/5 mb-2 bg-white/5 rounded-xl">
+                                    <p class="text-[15px] font-bold text-white truncate">{{ app.user.firstName }} {{ app.user.lastName }}</p>
+                                    <p class="text-xs text-indigo-400 font-black uppercase tracking-wider mt-1">
+                                        {% if is_granted('ROLE_ADMIN') %}Administrateur{% elseif is_granted('ROLE_TEACHER') %}Formateur{% else %}Étudiant{% endif %}
+                                    </p>
+                                </div>
+                                <a href="{{ path('app_profile') }}" class="flex items-center gap-4 px-4 py-3.5 text-[15px] font-semibold text-slate-300 hover:text-white hover:bg-white/5 rounded-xl transition-all group/item">
+                                    <div class="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center group-hover/item:bg-indigo-500/20 transition-colors">
+                                        <img src="{{ asset('icons/Settingsicon.png') }}" alt="Settings" class="w-5 h-5 object-contain">
+                                    </div>
+                                    <span>Mon Profil</span>
+                                </a>
+                                <a href="{{ path('app_logout') }}" class="flex items-center gap-4 px-4 py-3.5 mt-1 text-[15px] font-bold text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-xl transition-all group/item">
+                                    <div class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center group-hover/item:bg-red-500/20 transition-colors">
+                                        <img src="{{ asset('icons/Logout_icon_exit.png') }}" alt="Logout" class="w-5 h-5 object-contain">
+                                    </div>
+                                    <span>Déconnexion</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
 
-        {# Point d'injection pour les templates enfants #}
-        {% block body %}{% endblock %}
-        
+        {% block content_wrapper %}
+        <div class="p-6 md:p-10 max-w-[1400px] mx-auto flex-1 flex flex-col min-h-[calc(100vh-6rem)]">
+            {# Flash Messages #}
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="glass-card mb-8 p-5 border-l-4 {% if label == 'success' %}border-emerald-500 bg-emerald-500/10 text-emerald-100{% else %}border-red-500 bg-red-500/10 text-red-100{% endif %} rounded-r-2xl font-medium text-[15px] shadow-lg">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
+            {# Content Block #}
+            {% block body %}{% endblock %}
+        </div>
+        {% endblock %}
     </main>
 
-    {# --- FOOTER --- #}
-    <footer class="border-t border-white/5 bg-black/20 backdrop-blur-sm mt-auto py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
-            <p>&copy; {{ "now"|date("Y") }} EduPulse. Tous droits réservés.</p>
-            <div class="flex space-x-6">
-                <a href="#" class="hover:text-edu-indigo transition-colors">Mentions légales</a>
-                <a href="#" class="hover:text-edu-indigo transition-colors">Support</a>
-            </div>
-        </div>
-    </footer>
+    {# Overlay Mobile #}
+    <div id="mobile-overlay" class="menu-toggle fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-40 hidden opacity-0 md:hidden transition-all duration-300 cursor-pointer"></div>
 
 </body>
 </html>

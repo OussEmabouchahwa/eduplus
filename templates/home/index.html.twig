@@ -7,7 +7,7 @@
 {# =========================================================================
    1. HERO SECTION
    ========================================================================= #}
-<section class="relative pt-24 pb-32 lg:pt-36 lg:pb-40 overflow-hidden bg-[#0B1120]">
+<section class="relative pt-24 pb-32 lg:pt-36 lg:pb-40 overflow-hidden bg-[#020617]">
     {# Éléments de décoration (Néon flouté) #}
     <div class="absolute top-0 left-0 w-[500px] h-[500px] bg-indigo-600/20 rounded-full mix-blend-screen filter blur-[120px] opacity-60 animate-pulse pointer-events-none"></div>
     <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-cyan-600/10 rounded-full mix-blend-screen filter blur-[120px] opacity-60 pointer-events-none"></div>
@@ -27,7 +27,7 @@
                 
                 <h1 class="text-5xl lg:text-7xl font-black text-white leading-[1.15] tracking-tight">
                     Apprenez, Codez et <br/>
-                    <span class="text-gradient">Échangez en Direct.</span>
+                    <span class="text-gradient italic">Échangez en Direct.</span>
                 </h1>
                 
                 <p class="text-lg lg:text-xl text-slate-400 leading-relaxed max-w-xl font-light">
@@ -35,9 +35,11 @@
                 </p>
                 
                 <div class="flex flex-col sm:flex-row gap-5 pt-4">
-                    <a href="{{ path('app_register') }}" class="bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-400 hover:to-cyan-400 text-white rounded-xl text-center font-bold py-4 px-8 text-lg flex items-center justify-center gap-3 transition-all duration-300 shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_30px_rgba(34,211,238,0.5)] hover:-translate-y-1">
+                    <a href="{{ path('app_register') }}" class="group bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-400 hover:to-cyan-400 text-white rounded-xl text-center font-bold py-4 px-8 text-lg flex items-center justify-center gap-3 transition-all duration-300 shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_30px_rgba(34,211,238,0.5)] hover:-translate-y-1">
                         Commencer gratuitement
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white group-hover:translate-x-1 transition-transform duration-300">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+                        </svg>
                     </a>
                     <a href="{{ path('app_courses') }}" class="glass-card text-slate-300 text-center font-semibold py-4 px-8 hover:bg-white/10 hover:text-white rounded-xl flex items-center justify-center gap-3 transition-all duration-300">
                         Découvrir le programme
@@ -45,11 +47,23 @@
                 </div>
             </div>
 
-            {# Colonne Droite : Visuel Hero (Utilisation de monitor+student.png) #}
+            {# Colonne Droite : Visuel Hero (3D Interaction) #}
             <div class="relative group perspective-1000 hidden lg:block">
-                <div class="absolute -inset-2 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-2xl blur-xl opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
-                <div class="relative rounded-2xl overflow-hidden glass-card border-white/10 transform transition-all duration-700 hover:rotate-y-6 hover:scale-[1.03] shadow-2xl">
+                <div class="absolute -inset-4 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-2xl blur-2xl opacity-10 group-hover:opacity-25 transition duration-1000"></div>
+                <div class="relative rounded-3xl overflow-hidden glass-card border-white/10 transform transition-all duration-700 hover:rotate-y-6 hover:scale-[1.02] shadow-2xl">
                     <img src="{{ asset('images/landingpage/monitor+student.png') }}" alt="Hologramme éducatif EduPulse" class="w-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#020617]/40 to-transparent"></div>
+                </div>
+                
+                {# Badge flottant 3D #}
+                <div class="absolute -bottom-6 -left-6 glass-card p-4 flex items-center gap-4 animate-bounce duration-[3000ms] shadow-2xl border-indigo-500/20">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-500/20 flex items-center justify-center">
+                        <img src="{{ asset('icons/Certification_icon_with_diploma_.png') }}" class="w-8 h-8 object-contain" alt="Certif">
+                    </div>
+                    <div>
+                        <p class="text-white font-bold text-sm">Diplôme Certifiant</p>
+                        <p class="text-indigo-400 text-xs">Reconnu par l'industrie</p>
+                    </div>
                 </div>
             </div>
             
@@ -60,7 +74,7 @@
 {# =========================================================================
    2. FEATURES SECTION (La proposition de valeur)
    ========================================================================= #}
-<section class="py-32 relative border-t border-white/5 bg-[#080D1A]">
+<section class="py-32 relative border-t border-white/5 bg-[#010413]">
     <div class="container mx-auto px-6 relative z-10">
         
         <div class="text-center mb-24">
@@ -70,43 +84,49 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
             
-            {# Carte 1 : UX & Navigation #}
-            <div class="glass-card rounded-2xl p-8 group transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_10px_40px_-10px_rgba(99,102,241,0.3)] hover:border-indigo-500/50 flex flex-col">
-                <div class="relative h-56 rounded-xl overflow-hidden mb-8 border border-white/10 bg-slate-900">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#080D1A] to-transparent z-10 opacity-80 group-hover:opacity-40 transition-opacity duration-500"></div>
-                    <img src="{{ asset('images/landingpage/UX Sticky & Fluid Navigation (Expérience utilisateur).png') }}" alt="Navigation Fluide" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
-                    <div class="absolute bottom-4 left-4 z-20 h-14 w-14 rounded-xl bg-indigo-500/20 backdrop-blur-md border border-indigo-400/30 flex items-center justify-center text-indigo-400 shadow-lg">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+            {# Carte 1 : LMS & Cours #}
+            <div class="glass-card rounded-3xl p-8 group transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_10px_40px_-10px_rgba(99,102,241,0.3)] hover:border-indigo-500/50 flex flex-col">
+                <div class="relative h-56 rounded-2xl overflow-hidden mb-8 border border-white/5 bg-slate-950">
+                    <img src="{{ asset('images/landingpage/UX Sticky & Fluid Navigation (Expérience utilisateur).png') }}" alt="Navigation Fluide" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000 opacity-60 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-6 left-6 z-20 h-14 w-14 rounded-2xl bg-indigo-500/20 backdrop-blur-xl border border-indigo-400/30 flex items-center justify-center text-indigo-400 shadow-2xl transition-transform group-hover:scale-110">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 text-indigo-400 group-hover:text-white transition-colors duration-300">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                        </svg>
                     </div>
                 </div>
-                <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-indigo-400 transition-colors">Expérience Fluide</h3>
-                <p class="text-slate-400 text-base leading-relaxed flex-grow font-light">Une interface utilisateur repensée avec une navigation "sticky" pour que vos outils restent toujours à portée de clic.</p>
+                <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-indigo-400 transition-colors">Cours Interactifs</h3>
+                <p class="text-slate-400 text-base leading-relaxed flex-grow font-light">Une structure pédagogique optimisée pour une rétention maximale. Apprenez à votre rythme avec des supports ultra-modernes.</p>
             </div>
 
             {# Carte 2 : Temps Réel (Mercure) #}
-            <div class="glass-card rounded-2xl p-8 group transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_10px_40px_-10px_rgba(34,211,238,0.3)] hover:border-cyan-500/50 flex flex-col">
-                <div class="relative h-56 rounded-xl overflow-hidden mb-8 border border-white/10 bg-slate-900">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#080D1A] to-transparent z-10 opacity-80 group-hover:opacity-40 transition-opacity duration-500"></div>
-                    <img src="{{ asset('images/landingpage/Focus Chat Temps Rée right.jpeg') }}" alt="Real-time Chat" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
-                    <div class="absolute bottom-4 left-4 z-20 h-14 w-14 rounded-xl bg-cyan-500/20 backdrop-blur-md border border-cyan-400/30 flex items-center justify-center text-cyan-400 shadow-lg">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path></svg>
+            <div class="glass-card rounded-3xl p-8 group transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_10px_40px_-10px_rgba(34,211,238,0.3)] hover:border-cyan-500/50 flex flex-col">
+                <div class="relative h-56 rounded-2xl overflow-hidden mb-8 border border-white/5 bg-slate-950">
+                    <img src="{{ asset('images/landingpage/Focus Chat Temps Rée right.jpeg') }}" alt="Real-time Chat" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000 opacity-60 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-6 left-6 z-20 h-14 w-14 rounded-2xl bg-cyan-500/20 backdrop-blur-xl border border-cyan-400/30 flex items-center justify-center text-cyan-400 shadow-2xl transition-transform group-hover:scale-110">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 text-cyan-400 group-hover:text-white transition-colors duration-300">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
+                        </svg>
                     </div>
                 </div>
                 <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-cyan-400 transition-colors">Chat Temps Réel</h3>
                 <p class="text-slate-400 text-base leading-relaxed flex-grow font-light">Propulsé par Symfony Mercure. Échangez en direct avec vos pairs et professeurs sans jamais recharger la page.</p>
             </div>
 
-            {# Carte 3 : Digicard & Communauté #}
-            <div class="glass-card rounded-2xl p-8 group transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_10px_40px_-10px_rgba(168,85,247,0.3)] hover:border-purple-500/50 flex flex-col">
-                <div class="relative h-56 rounded-xl overflow-hidden mb-8 border border-white/10 bg-slate-900">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#080D1A] to-transparent z-10 opacity-80 group-hover:opacity-40 transition-opacity duration-500"></div>
-                    <img src="{{ asset('images/landingpage/digicarde.jpeg') }}" alt="Mentoring Connection" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
-                    <div class="absolute bottom-4 left-4 z-20 h-14 w-14 rounded-xl bg-purple-500/20 backdrop-blur-md border border-purple-400/30 flex items-center justify-center text-purple-400 shadow-lg">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"></path></svg>
+            {# Carte 3 : Digicard & Mentorat #}
+            <div class="glass-card rounded-3xl p-8 group transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_10px_40px_-10px_rgba(168,85,247,0.3)] hover:border-purple-500/50 flex flex-col">
+                <div class="relative h-56 rounded-2xl overflow-hidden mb-8 border border-white/5 bg-slate-950">
+                    <img src="{{ asset('images/landingpage/digicarde.jpeg') }}" alt="Mentoring Connection" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000 opacity-60 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-6 left-6 z-20 h-14 w-14 rounded-2xl bg-purple-500/20 backdrop-blur-xl border border-purple-400/30 flex items-center justify-center text-purple-400 shadow-2xl transition-transform group-hover:scale-110">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 text-purple-400 group-hover:text-white transition-colors duration-300">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
+                        </svg>
                     </div>
                 </div>
-                <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-purple-400 transition-colors">Profils & Digicards</h3>
-                <p class="text-slate-400 text-base leading-relaxed flex-grow font-light">Mettez en avant vos compétences. Nos cartes numériques vous permettent de briller au sein de la communauté d'apprenants.</p>
+                <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-purple-400 transition-colors">Mentorat & Profils</h3>
+                <p class="text-slate-400 text-base leading-relaxed flex-grow font-light">Mettez en avant vos compétences. Nos cartes numériques vous permettent de briller au sein de la communauté.</p>
             </div>
 
         </div>
@@ -116,25 +136,30 @@
 {# =========================================================================
    3. LEARNING SPACE SECTION (Aperçu du produit)
    ========================================================================= #}
-<section class="py-32 relative overflow-hidden bg-[#0B1120]">
+<section class="py-32 relative overflow-hidden bg-[#020617]">
     {# Décoration de fond massif #}
     <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-600/10 rounded-full blur-[150px] pointer-events-none"></div>
     
     <div class="container mx-auto px-6 relative z-10 text-center">
-        <h2 class="text-4xl lg:text-6xl font-black text-white mb-8 tracking-tight">Votre nouvel <span class="text-gradient">Espace de Travail</span></h2>
-        <p class="text-xl text-slate-400 mb-16 max-w-3xl mx-auto font-light">Une interface scindée pensée pour la productivité absolue. Suivez vos leçons d'un côté, et collaborez avec la communauté de l'autre.</p>
+        <h2 class="text-4xl lg:text-6xl font-black text-white mb-8 tracking-tight">Votre nouvel <span class="text-gradient italic">Espace de Travail</span></h2>
+        <p class="text-xl text-slate-400 mb-16 max-w-3xl mx-auto font-light leading-relaxed">Une interface scindée pensée pour la productivité absolue. Suivez vos leçons d'un côté, et collaborez avec la communauté de l'autre.</p>
         
-        <div class="relative max-w-6xl mx-auto rounded-3xl overflow-hidden glass-card border border-white/10 shadow-[0_0_80px_rgba(99,102,241,0.15)] group">
-            <div class="absolute inset-0 bg-gradient-to-t from-[#0B1120] via-transparent to-transparent z-10 opacity-70"></div>
+        <div class="relative max-w-6xl mx-auto rounded-[2.5rem] overflow-hidden glass-card border border-white/10 shadow-[0_0_80px_rgba(99,102,241,0.15)] group">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent z-10 opacity-70"></div>
             
             {# Image Officielle Learning Space #}
-            <img src="{{ asset('images/landingpage/Learning Space.png') }}" alt="Interface EduPulse Double Écran" class="w-full object-cover transform transition-transform duration-1000 group-hover:scale-[1.02]">
+            <img src="{{ asset('images/landingpage/Learning Space.png') }}" alt="Interface EduPulse Double Écran" class="w-full object-cover transform transition-transform duration-[2000ms] group-hover:scale-[1.03]">
             
-            {# Overlay Bouton Play/Join (Décoratif) #}
-            <div class="absolute inset-0 z-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-slate-900/40 backdrop-blur-sm">
-                <a href="{{ path('app_courses') }}" class="bg-indigo-600 hover:bg-indigo-500 text-white rounded-full py-4 px-10 text-lg font-bold shadow-[0_0_30px_rgba(99,102,241,0.6)] flex items-center gap-3 transition-transform hover:scale-105">
-                    Essayer l'interface
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            {# Overlay Bouton Play (3D Style) #}
+            <div class="absolute inset-0 z-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-slate-950/40 backdrop-blur-sm">
+                <a href="{{ path('app_courses') }}" class="relative group/btn flex flex-col items-center gap-6">
+                    <div class="w-24 h-24 rounded-full bg-white/10 border border-white/20 backdrop-blur-2xl flex items-center justify-center transition-transform hover:scale-110 shadow-2xl">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-white fill-white">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z" />
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <span class="text-white font-black text-2xl tracking-widest uppercase opacity-0 group-hover/btn:opacity-100 transition-all transform translate-y-4 group-hover/btn:translate-y-0">Essayer la console</span>
                 </a>
             </div>
         </div>
@@ -144,15 +169,15 @@
 {# =========================================================================
    4. CALL-TO-ACTION SECTION
    ========================================================================= #}
-<section class="py-24 relative mb-10 bg-[#080D1A]">
+<section class="py-24 relative mb-10 bg-[#010413]">
     <div class="container mx-auto px-6 max-w-6xl">
-        <div class="relative overflow-hidden rounded-[3rem] p-12 md:p-24 text-center border border-indigo-500/20 shadow-[0_0_50px_rgba(99,102,241,0.1)]">
+        <div class="relative overflow-hidden rounded-[4rem] p-12 md:p-24 text-center border border-indigo-500/20 shadow-[0_0_50px_rgba(99,102,241,0.1)] group">
             
-            {# Background Image Vortex/Arbre (Éclosion de Carrière) #}
-            <div class="absolute inset-0 z-0 opacity-30 mix-blend-luminosity">
+            {# Background Image Vortex #}
+            <div class="absolute inset-0 z-0 opacity-40 mix-blend-luminosity transform group-hover:scale-110 transition-transform duration-[10000ms]">
                 <img src="{{ asset('images/landingpage/Éclosion de Carrière (Transformation finale).jpeg') }}" alt="Éclosion de Carrière" class="w-full h-full object-cover">
             </div>
-            <div class="absolute inset-0 z-0 bg-gradient-to-b from-[#0B1120]/90 via-indigo-950/80 to-[#0B1120]/90"></div>
+            <div class="absolute inset-0 z-0 bg-gradient-to-b from-[#020617]/95 via-indigo-950/70 to-[#020617]/95"></div>
 
             <div class="relative z-10">
                 <h2 class="text-4xl md:text-6xl font-black text-white mb-8 tracking-tight">Prêt à <span class="text-gradient">pulser</span> votre carrière ?</h2>
@@ -161,9 +186,11 @@
                 </p>
                 
                 <div class="flex flex-col sm:flex-row gap-6 justify-center">
-                    <a href="{{ path('app_register') }}" class="px-10 py-5 bg-white text-indigo-950 hover:bg-slate-100 hover:scale-105 transition-all duration-300 font-black rounded-2xl shadow-[0_0_40px_rgba(255,255,255,0.2)] text-lg flex items-center justify-center gap-3">
+                    <a href="{{ path('app_register') }}" class="px-12 py-5 bg-white text-indigo-950 hover:bg-slate-100 hover:scale-105 transition-all duration-300 font-black rounded-2xl shadow-[0_0_40px_rgba(255,255,255,0.2)] text-lg flex items-center justify-center gap-4">
                         Créer mon compte
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+                        </svg>
                     </a>
                 </div>
             </div>

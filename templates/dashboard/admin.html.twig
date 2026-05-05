@@ -4,61 +4,87 @@
 {% block page_title %}Vue d'ensemble Administration{% endblock %}
 
 {% block body %}
-<div class="space-y-8 animate-fade-in">
-    {# Header Stats #}
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="glass-card p-6 flex items-center gap-4">
-            <div class="p-3 rounded-xl bg-blue-500/10 text-blue-400">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-            </div>
-            <div>
-                <div class="text-xs text-slate-500 uppercase font-bold tracking-wider">Utilisateurs</div>
-                <div class="text-2xl font-bold text-white">{{ teachers|length + students|length }}</div>
-            </div>
+<div class="space-y-8 animate-fade-in relative pb-12">
+    
+    {# La Date bien centrée #}
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-3xl font-extrabold text-white tracking-tight">Vue d'ensemble</h1>
+            <p class="text-slate-400 mt-1">Gérez votre plateforme et suivez l'activité en temps réel.</p>
         </div>
-        <div class="glass-card p-6 flex items-center gap-4">
-            <div class="p-3 rounded-xl bg-purple-500/10 text-purple-400">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-            </div>
-            <div>
-                <div class="text-xs text-slate-500 uppercase font-bold tracking-wider">Cours Actifs</div>
-                <div class="text-2xl font-bold text-white">{{ courses|length }}</div>
-            </div>
-        </div>
-        <div class="glass-card p-6 flex items-center gap-4">
-            <div class="p-3 rounded-xl bg-green-500/10 text-green-400">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-            </div>
-            <div>
-                <div class="text-xs text-slate-500 uppercase font-bold tracking-wider">Formateurs</div>
-                <div class="text-2xl font-bold text-white">{{ teachers|length }}</div>
+        <div class="flex items-center">
+            <div class="flex items-center justify-center px-6 py-3 bg-indigo-500/10 border border-indigo-500/20 rounded-xl text-indigo-400 text-sm font-bold tracking-wide">
+                {{ "now"|date("d M Y") }}
             </div>
         </div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    {# Header Stats #}
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="glass-card p-6 flex items-center gap-5 group hover:border-indigo-500/30 transition-all duration-300">
+            <div class="flex-shrink-0 w-14 h-14 bg-indigo-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                <img src="{{ asset('icons/Group_of_users_icon.png') }}" alt="Users" class="w-10 h-10 object-contain drop-shadow-xl">
+            </div>
+            <div>
+                <div class="text-xs text-slate-500 uppercase font-bold tracking-widest">Utilisateurs</div>
+                <div class="text-3xl font-black text-white leading-none mt-1">{{ teachers|length + students|length }}</div>
+            </div>
+        </div>
+        <div class="glass-card p-6 flex items-center gap-5 group hover:border-cyan-500/30 transition-all duration-300">
+            <div class="flex-shrink-0 w-14 h-14 bg-cyan-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                <img src="{{ asset('icons/Library_and_Books_icon.png') }}" alt="Courses" class="w-10 h-10 object-contain drop-shadow-xl">
+            </div>
+            <div>
+                <div class="text-xs text-slate-500 uppercase font-bold tracking-widest">Cours Actifs</div>
+                <div class="text-3xl font-black text-white leading-none mt-1">{{ courses|length }}</div>
+            </div>
+        </div>
+        <div class="glass-card p-6 flex items-center gap-5 group hover:border-emerald-500/30 transition-all duration-300">
+            <div class="flex-shrink-0 w-14 h-14 bg-emerald-500/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                <img src="{{ asset('icons/teatcherr.png') }}" alt="Teachers" class="w-10 h-10 object-contain drop-shadow-xl">
+            </div>
+            <div>
+                <div class="text-xs text-slate-500 uppercase font-bold tracking-widest">Formateurs</div>
+                <div class="text-3xl font-black text-white leading-none mt-1">{{ teachers|length }}</div>
+            </div>
+        </div>
+    </div>
+
+    {# CORRECTION : Retour au Grid initial mais avec plus d'espacement (gap-10 au lieu de gap-8) #}
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12">
+        
         {# Teachers List #}
-        <div class="glass-card">
-            <div class="p-6 border-b border-white/5 flex justify-between items-center">
-                <h2 class="text-xl font-bold text-white">Formateurs</h2>
-                <span class="text-xs text-indigo-400 bg-indigo-500/10 px-2 py-1 rounded-full font-bold">Total: {{ teachers|length }}</span>
+        <div class="glass-card flex flex-col overflow-hidden">
+            <div class="p-6 border-b border-white/5 flex justify-between items-center bg-white/5">
+                <div class="flex items-center gap-3">
+                    <img src="{{ asset('icons/teatcherr.png') }}" class="w-6 h-6 object-contain" alt="">
+                    <h2 class="text-lg font-bold text-white">Formateurs récents</h2>
+                </div>
+                <a href="{{ path('app_admin_teacher_index') }}" class="text-xs text-indigo-400 hover:text-indigo-300 font-bold uppercase tracking-wider transition-colors">Voir tout</a>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr class="text-slate-500 text-sm uppercase tracking-wider">
-                            <th class="px-6 py-4 font-semibold">Nom</th>
-                            <th class="px-6 py-4 font-semibold">Email</th>
-                            <th class="px-6 py-4 font-semibold">Action</th>
+                        <tr class="text-slate-500 text-[10px] uppercase tracking-[0.2em] bg-black/20">
+                            <th class="px-6 py-3 font-black">Formateur</th>
+                            <th class="px-6 py-3 font-black">Email</th>
+                            <th class="px-6 py-3 font-black text-right">Action</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-white/5">
-                        {% for teacher in teachers %}
-                            <tr class="hover:bg-white/5 transition-colors">
-                                <td class="px-6 py-4 text-white font-medium">{{ teacher.firstName }} {{ teacher.lastName }}</td>
-                                <td class="px-6 py-4 text-slate-400 text-sm">{{ teacher.email }}</td>
+                        {% for teacher in teachers|slice(0, 5) %}
+                            <tr class="hover:bg-white/5 transition-colors group">
                                 <td class="px-6 py-4">
-                                    <button class="text-indigo-400 hover:text-white transition-colors text-xs font-bold uppercase">Gérer</button>
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center text-xs font-bold text-indigo-400">
+                                            {{ teacher.firstName|first }}{{ teacher.lastName|first }}
+                                        </div>
+                                        <span class="text-white font-medium text-sm group-hover:text-indigo-300 transition-colors">{{ teacher.firstName }} {{ teacher.lastName }}</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-slate-400 text-xs font-medium italic">{{ teacher.email }}</td>
+                                <td class="px-6 py-4 text-right">
+                                    <a href="{{ path('app_admin_teacher_index') }}" class="px-3 py-1.5 rounded-lg bg-indigo-500/10 text-indigo-400 text-[10px] font-black uppercase hover:bg-indigo-500 hover:text-white transition-all">Gérer</a>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -68,31 +94,41 @@
         </div>
 
         {# Students List #}
-        <div class="glass-card">
-            <div class="p-6 border-b border-white/5 flex justify-between items-center">
-                <h2 class="text-xl font-bold text-white">Étudiants</h2>
-                <span class="text-xs text-cyan-400 bg-cyan-500/10 px-2 py-1 rounded-full font-bold">Total: {{ students|length }}</span>
+        <div class="glass-card flex flex-col overflow-hidden">
+            <div class="p-6 border-b border-white/5 flex justify-between items-center bg-white/5">
+                <div class="flex items-center gap-3">
+                    <img src="{{ asset('icons/Group_of_users_icon.png') }}" class="w-6 h-6 object-contain" alt="">
+                    <h2 class="text-lg font-bold text-white">Étudiants actifs</h2>
+                </div>
+                <a href="{{ path('app_admin_user_index') }}" class="text-xs text-cyan-400 hover:text-cyan-300 font-bold uppercase tracking-wider transition-colors">Voir tout</a>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr class="text-slate-500 text-sm uppercase tracking-wider">
-                            <th class="px-6 py-4 font-semibold">Nom</th>
-                            <th class="px-6 py-4 font-semibold">Cours</th>
-                            <th class="px-6 py-4 font-semibold">Action</th>
+                        <tr class="text-slate-500 text-[10px] uppercase tracking-[0.2em] bg-black/20">
+                            <th class="px-6 py-3 font-black">Étudiant</th>
+                            <th class="px-6 py-3 font-black">Inscription</th>
+                            <th class="px-6 py-3 font-black text-right">Action</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-white/5">
-                        {% for student in students %}
-                            <tr class="hover:bg-white/5 transition-colors">
-                                <td class="px-6 py-4 text-white font-medium">{{ student.firstName }}</td>
+                        {% for student in students|slice(0, 5) %}
+                            <tr class="hover:bg-white/5 transition-colors group">
                                 <td class="px-6 py-4">
-                                    <span class="px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-xs text-slate-400">
-                                        {{ student.enrolledCourses|length }} inscrits
-                                    </span>
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-cyan-500/20 flex items-center justify-center text-xs font-bold text-cyan-400">
+                                            {{ student.firstName|first }}{{ student.lastName|first }}
+                                        </div>
+                                        <span class="text-white font-medium text-sm group-hover:text-cyan-300 transition-colors">{{ student.firstName }} {{ student.lastName }}</span>
+                                    </div>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <button class="text-cyan-400 hover:text-white transition-colors text-xs font-bold uppercase">Profil</button>
+                                    <span class="px-2 py-1 rounded-md bg-white/5 border border-white/10 text-[10px] font-bold text-slate-400">
+                                        {{ student.enrolledCourses|length }} COURS
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <a href="{{ path('app_admin_user_index') }}" class="px-3 py-1.5 rounded-lg bg-cyan-500/10 text-cyan-400 text-[10px] font-black uppercase hover:bg-cyan-500 hover:text-white transition-all">Profil</a>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -102,16 +138,22 @@
         </div>
     </div>
 
-    {# Global Conversations Link #}
-    <div class="glass-card p-8 text-center bg-gradient-to-br from-indigo-500/10 to-transparent border-indigo-500/20">
-        <h2 class="text-2xl font-bold text-white mb-4">Surveillance des Discussions</h2>
-        <p class="text-slate-400 mb-8 max-w-2xl mx-auto">En tant qu'administrateur, vous avez accès à tous les salons de discussion pour assurer la qualité des échanges et modérer les propos.</p>
-        <div class="flex flex-wrap justify-center gap-4">
-            {% for course in courses %}
-                <a href="{{ path('app_chat_room', {'courseId': course.id}) }}" class="px-4 py-2 rounded-lg bg-white/5 border border-white/10 hover:border-indigo-500/50 hover:bg-indigo-500/10 transition-all text-sm text-slate-300">
-                    {{ course.title }}
-                </a>
-            {% endfor %}
+    {# Image ajustée pour la discussion #}
+    <div class="glass-card p-10 text-center relative overflow-hidden group">
+        <div class="absolute inset-0 bg-gradient-to-r from-indigo-500/10 via-transparent to-cyan-500/10 opacity-50"></div>
+        <div class="relative z-10">
+            <div class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform duration-500">
+                <img src="{{ asset('icons/messagesSection.png') }}" alt="Chat" class="w-8 h-8 object-contain">
+            </div>
+            <h2 class="text-2xl font-black text-white mb-3">Surveillance des Discussions</h2>
+            <p class="text-slate-400 mb-8 max-w-2xl mx-auto font-medium">Modérez les échanges et assurez la qualité pédagogique dans tous les salons de cours.</p>
+            <div class="flex flex-wrap justify-center gap-3">
+                {% for course in courses %}
+                    <a href="{{ path('app_chat_room', {'courseId': course.id}) }}" class="px-5 py-2.5 rounded-xl bg-slate-900/50 border border-white/10 hover:border-indigo-500/50 hover:bg-indigo-500/10 hover:-translate-y-1 transition-all text-sm font-bold text-slate-300 hover:text-white shadow-xl">
+                        {{ course.title }}
+                    </a>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>

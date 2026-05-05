@@ -89,38 +89,38 @@
             <div class="space-y-1.5">
                 <div class="text-[10px] font-extrabold text-slate-500 uppercase tracking-widest mb-3 px-3">Principal</div>
                 
-                <a href="{{ path('app_dashboard') }}" class="flex items-center justify-between px-3 py-2.5 rounded-xl {% if app.request.attributes.get('_route') starts with 'app_dashboard' %}bg-indigo-500/10 text-indigo-400 font-bold shadow-[inset_4px_0_0_0_rgba(99,102,241,1)]{% else %}text-slate-400 hover:bg-white/5 hover:text-slate-200 font-medium{% endif %} transition-all group">
+                <a href="{{ path('app_dashboard') }}" class="flex items-center justify-between px-3 py-2 rounded-xl {% if app.request.attributes.get('_route') starts with 'app_dashboard' %}bg-indigo-500/10 text-indigo-400 font-bold shadow-[inset_4px_0_0_0_rgba(99,102,241,1)]{% else %}text-slate-400 hover:bg-white/5 hover:text-slate-200 font-medium{% endif %} transition-all group">
                     <div class="flex items-center gap-3">
-                        <div class="p-1.5 rounded-lg {% if app.request.attributes.get('_route') starts with 'app_dashboard' %}bg-indigo-500/20 text-indigo-400{% else %}bg-slate-800 text-slate-400 group-hover:bg-slate-700 group-hover:text-slate-200{% endif %} transition-colors">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                        <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center transition-transform group-hover:scale-110 group-hover:-translate-y-0.5 duration-300">
+                            <img src="{{ asset('icons/Minimalist_house_icon.png') }}" alt="Dashboard" class="w-7 h-7 object-contain drop-shadow-[0_0_8px_rgba(99,102,241,0.3)]">
                         </div>
                         Tableau de bord
                     </div>
                 </a>
 
-                <a href="{{ path('app_courses') }}" class="flex items-center justify-between px-3 py-2.5 rounded-xl {% if app.request.attributes.get('_route') starts with 'app_courses' %}bg-indigo-500/10 text-indigo-400 font-bold shadow-[inset_4px_0_0_0_rgba(99,102,241,1)]{% else %}text-slate-400 hover:bg-white/5 hover:text-slate-200 font-medium{% endif %} transition-all group">
+                <a href="{{ path('app_courses') }}" class="flex items-center justify-between px-3 py-2 rounded-xl {% if app.request.attributes.get('_route') starts with 'app_courses' %}bg-indigo-500/10 text-indigo-400 font-bold shadow-[inset_4px_0_0_0_rgba(99,102,241,1)]{% else %}text-slate-400 hover:bg-white/5 hover:text-slate-200 font-medium{% endif %} transition-all group">
                     <div class="flex items-center gap-3">
-                        <div class="p-1.5 rounded-lg {% if app.request.attributes.get('_route') starts with 'app_courses' %}bg-indigo-500/20 text-indigo-400{% else %}bg-slate-800 text-slate-400 group-hover:bg-slate-700 group-hover:text-slate-200{% endif %} transition-colors">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center transition-transform group-hover:scale-110 group-hover:-translate-y-0.5 duration-300">
+                            <img src="{{ asset('icons/coursecatloge-.png') }}" alt="Catalogue" class="w-7 h-7 object-contain">
                         </div>
                         Catalogue Cours
                     </div>
                 </a>
 
-                <a href="{{ path('app_chat') }}" class="flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-400 hover:bg-white/5 hover:text-slate-200 font-medium transition-all group">
+                <a href="{{ path('app_chat') }}" class="flex items-center justify-between px-3 py-2 rounded-xl text-slate-400 hover:bg-white/5 hover:text-slate-200 font-medium transition-all group">
                     <div class="flex items-center gap-3">
-                        <div class="p-1.5 rounded-lg bg-slate-800 text-slate-400 group-hover:bg-slate-700 group-hover:text-slate-200 transition-colors">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                        <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center transition-transform group-hover:scale-110 group-hover:-translate-y-0.5 duration-300">
+                            <img src="{{ asset('icons/messagesSection.png') }}" alt="Messages" class="w-7 h-7 object-contain">
                         </div>
                         Messages
                     </div>
                     <span class="bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 text-[10px] font-bold px-2 py-0.5 rounded-full">Chat</span>
                 </a>
 
-                <a href="{{ path('app_profile') }}" class="flex items-center justify-between px-3 py-2.5 rounded-xl {% if app.request.attributes.get('_route') == 'app_profile' %}bg-indigo-500/10 text-indigo-400 font-bold shadow-[inset_4px_0_0_0_rgba(99,102,241,1)]{% else %}text-slate-400 hover:bg-white/5 hover:text-slate-200 font-medium{% endif %} transition-all group">
+                <a href="{{ path('app_profile') }}" class="flex items-center justify-between px-3 py-2 rounded-xl {% if app.request.attributes.get('_route') == 'app_profile' %}bg-indigo-500/10 text-indigo-400 font-bold shadow-[inset_4px_0_0_0_rgba(99,102,241,1)]{% else %}text-slate-400 hover:bg-white/5 hover:text-slate-200 font-medium{% endif %} transition-all group">
                     <div class="flex items-center gap-3">
-                        <div class="p-1.5 rounded-lg {% if app.request.attributes.get('_route') == 'app_profile' %}bg-indigo-500/20 text-indigo-400{% else %}bg-slate-800 text-slate-400 group-hover:bg-slate-700 group-hover:text-slate-200{% endif %} transition-colors">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center transition-transform group-hover:scale-110 group-hover:-translate-y-0.5 duration-300">
+                            <img src="{{ asset('icons/authntification.png') }}" alt="Profil" class="w-7 h-7 object-contain">
                         </div>
                         Mon Profil
                     </div>
@@ -132,28 +132,28 @@
             <div class="space-y-1.5">
                 <div class="text-[10px] font-extrabold text-slate-500 uppercase tracking-widest mb-3 px-3">Administration</div>
                 
-                <a href="{{ path('app_admin_user_index') }}" class="flex items-center justify-between px-3 py-2.5 rounded-xl {% if app.request.attributes.get('_route') starts with 'app_admin_user' %}bg-indigo-500/10 text-indigo-400 font-bold shadow-[inset_4px_0_0_0_rgba(99,102,241,1)]{% else %}text-slate-400 hover:bg-white/5 hover:text-slate-200 font-medium{% endif %} transition-all group">
+                <a href="{{ path('app_admin_user_index') }}" class="flex items-center justify-between px-3 py-2 rounded-xl {% if app.request.attributes.get('_route') starts with 'app_admin_user' %}bg-indigo-500/10 text-indigo-400 font-bold shadow-[inset_4px_0_0_0_rgba(99,102,241,1)]{% else %}text-slate-400 hover:bg-white/5 hover:text-slate-200 font-medium{% endif %} transition-all group">
                     <div class="flex items-center gap-3">
-                        <div class="p-1.5 rounded-lg {% if app.request.attributes.get('_route') starts with 'app_admin_user' %}bg-indigo-500/20 text-indigo-400{% else %}bg-slate-800 text-slate-400 group-hover:bg-slate-700 group-hover:text-slate-200{% endif %} transition-colors">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center transition-transform group-hover:scale-110 group-hover:-translate-y-0.5 duration-300">
+                            <img src="{{ asset('icons/Group_of_users_icon.png') }}" alt="Utilisateurs" class="w-7 h-7 object-contain">
                         </div>
                         Utilisateurs
                     </div>
                 </a>
 
-                <a href="{{ path('app_admin_teacher_index') }}" class="flex items-center justify-between px-3 py-2.5 rounded-xl {% if app.request.attributes.get('_route') starts with 'app_admin_teacher' %}bg-indigo-500/10 text-indigo-400 font-bold shadow-[inset_4px_0_0_0_rgba(99,102,241,1)]{% else %}text-slate-400 hover:bg-white/5 hover:text-slate-200 font-medium{% endif %} transition-all group">
+                <a href="{{ path('app_admin_teacher_index') }}" class="flex items-center justify-between px-3 py-2 rounded-xl {% if app.request.attributes.get('_route') starts with 'app_admin_teacher' %}bg-indigo-500/10 text-indigo-400 font-bold shadow-[inset_4px_0_0_0_rgba(99,102,241,1)]{% else %}text-slate-400 hover:bg-white/5 hover:text-slate-200 font-medium{% endif %} transition-all group">
                     <div class="flex items-center gap-3">
-                        <div class="p-1.5 rounded-lg {% if app.request.attributes.get('_route') starts with 'app_admin_teacher' %}bg-indigo-500/20 text-indigo-400{% else %}bg-slate-800 text-slate-400 group-hover:bg-slate-700 group-hover:text-slate-200{% endif %} transition-colors">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center transition-transform group-hover:scale-110 group-hover:-translate-y-0.5 duration-300">
+                            <img src="{{ asset('icons/teatcherr.png') }}" alt="Formateurs" class="w-7 h-7 object-contain">
                         </div>
                         Formateurs
                     </div>
                 </a>
 
-                <a href="{{ path('app_admin_course_index') }}" class="flex items-center justify-between px-3 py-2.5 rounded-xl {% if app.request.attributes.get('_route') starts with 'app_admin_course' %}bg-indigo-500/10 text-indigo-400 font-bold shadow-[inset_4px_0_0_0_rgba(99,102,241,1)]{% else %}text-slate-400 hover:bg-white/5 hover:text-slate-200 font-medium{% endif %} transition-all group">
+                <a href="{{ path('app_admin_course_index') }}" class="flex items-center justify-between px-3 py-2 rounded-xl {% if app.request.attributes.get('_route') starts with 'app_admin_course' %}bg-indigo-500/10 text-indigo-400 font-bold shadow-[inset_4px_0_0_0_rgba(99,102,241,1)]{% else %}text-slate-400 hover:bg-white/5 hover:text-slate-200 font-medium{% endif %} transition-all group">
                     <div class="flex items-center gap-3">
-                        <div class="p-1.5 rounded-lg {% if app.request.attributes.get('_route') starts with 'app_admin_course' %}bg-indigo-500/20 text-indigo-400{% else %}bg-slate-800 text-slate-400 group-hover:bg-slate-700 group-hover:text-slate-200{% endif %} transition-colors">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                        <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center transition-transform group-hover:scale-110 group-hover:-translate-y-0.5 duration-300">
+                            <img src="{{ asset('icons/Library_and_Books_icon.png') }}" alt="Cours" class="w-7 h-7 object-contain">
                         </div>
                         Cours
                     </div>
@@ -175,15 +175,29 @@
                 <button onclick="document.getElementById('sidebar').classList.toggle('-translate-x-full')" class="md:hidden p-2 text-slate-400 hover:text-white rounded-lg hover:bg-white/5 transition-colors">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                 </button>
-                <h2 class="text-lg md:text-xl font-bold text-white hidden sm:block">{% block page_title %}Tableau de Bord{% endblock %}</h2>
+                <h2 class="text-lg font-black text-white hidden 2xl:block flex-shrink-0 tracking-tight">{% block page_title %}Tableau de Bord{% endblock %}</h2>
+                
+                {# Central Search Bar - Expanded #}
+                <div class="flex-1 flex justify-center px-4 md:px-12">
+                    <div class="w-full max-w-3xl relative group">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <img src="{{ asset('icons/Search.png') }}" alt="Search" class="w-5 h-5 object-contain opacity-40 group-focus-within:opacity-100 transition-opacity">
+                        </div>
+                        <input type="text" 
+                               placeholder="Rechercher des cours, des étudiants, des formateurs..." 
+                               class="block w-full bg-slate-900/40 border border-white/5 rounded-2xl py-3.5 pl-12 pr-4 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500/40 focus:bg-slate-900 transition-all shadow-2xl backdrop-blur-sm">
+                    </div>
+                </div>
             </div>
             
             {# User Profile in Topbar #}
             <div class="flex items-center gap-6">
                 {# Notifications #}
-                <button class="p-2 text-slate-400 hover:text-white rounded-full hover:bg-white/5 transition-colors relative">
-                    <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border border-slate-900"></span>
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                <button class="p-1 text-slate-400 hover:text-white rounded-full hover:bg-white/5 transition-all group">
+                    <div class="relative w-8 h-8 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full border border-slate-900 z-10 animate-pulse"></span>
+                        <img src="{{ asset('icons/Notification.png') }}" alt="Notifications" class="w-7 h-7 object-contain">
+                    </div>
                 </button>
                 
                 {# Profile Menu #}
@@ -193,25 +207,45 @@
                         <p class="text-xs text-indigo-400 font-medium">{% if is_granted('ROLE_ADMIN') %}Administrateur{% elseif is_granted('ROLE_TEACHER') %}Formateur{% else %}Étudiant{% endif %}</p>
                     </div>
                     
-                    <div class="relative group cursor-pointer">
-                        <div class="w-10 h-10 rounded-full border-2 border-indigo-500/30 overflow-hidden shadow-lg shadow-indigo-500/10 transition-transform group-hover:scale-105">
-                            {% if app.user.profilePhoto %}
-                                <img src="{{ asset('uploads/profiles/' ~ app.user.profilePhoto) }}" alt="Profile Photo" class="w-full h-full object-cover">
-                            {% else %}
-                                <div class="w-full h-full bg-slate-800 flex items-center justify-center text-slate-300 font-bold uppercase text-sm">
-                                    {{ app.user.firstName|first }}{{ app.user.lastName|first }}
-                                </div>
-                            {% endif %}
+                    <div class="relative group">
+                        <div class="flex items-center gap-3 cursor-pointer py-2">
+                            <div class="w-10 h-10 rounded-full border-2 border-indigo-500/30 overflow-hidden shadow-lg shadow-indigo-500/10 transition-transform group-hover:scale-105">
+                                {% if app.user.profilePhoto %}
+                                    <img src="{{ asset('uploads/profiles/' ~ app.user.profilePhoto) }}" alt="Profile Photo" class="w-full h-full object-cover">
+                                {% else %}
+                                    <div class="w-full h-full bg-slate-800 flex items-center justify-center text-slate-300 font-bold uppercase text-sm">
+                                        {{ app.user.firstName|first }}{{ app.user.lastName|first }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <svg class="w-4 h-4 text-slate-500 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
                         </div>
                         
-                        {# Dropdown Menu (Hover) #}
-                        <div class="absolute right-0 mt-2 w-48 bg-slate-800 border border-slate-700 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right">
-                            <div class="p-2 space-y-1">
-                                <div class="md:hidden px-3 py-2 mb-2 border-b border-slate-700">
+                        {# Dropdown Menu #}
+                        <div class="absolute right-0 top-full w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 z-50">
+                            <div class="mt-2 bg-slate-900/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
+                                <div class="px-4 py-3 border-b border-white/5 bg-white/5">
                                     <p class="text-sm font-bold text-white truncate">{{ app.user.firstName }} {{ app.user.lastName }}</p>
+                                    <p class="text-[10px] text-indigo-400 font-bold uppercase tracking-wider">
+                                        {% if is_granted('ROLE_ADMIN') %}Administrateur{% elseif is_granted('ROLE_TEACHER') %}Formateur{% else %}Étudiant{% endif %}
+                                    </p>
                                 </div>
-                                <a href="{{ path('app_profile') }}" class="block px-3 py-2 text-sm text-slate-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Mon Profil</a>
-                                <a href="{{ path('app_logout') }}" class="block px-3 py-2 text-sm font-semibold text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors">Déconnexion</a>
+                                <div class="p-2">
+                                    <a href="{{ path('app_profile') }}" class="flex items-center gap-3 px-3 py-2.5 text-sm text-slate-300 hover:text-white hover:bg-white/5 rounded-xl transition-all group/item">
+                                        <div class="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center group-hover/item:bg-indigo-500/20 transition-colors">
+                                            <img src="{{ asset('icons/Settingsicon.png') }}" alt="Settings" class="w-4 h-4 object-contain">
+                                        </div>
+                                        <span>Mon Profil</span>
+                                    </a>
+                                    <a href="{{ path('app_logout') }}" class="flex items-center gap-3 px-3 py-2.5 text-sm font-semibold text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-xl transition-all group/item">
+                                        <div class="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center group-hover/item:bg-red-500/20 transition-colors">
+                                            <img src="{{ asset('icons/Logout_icon_exit.png') }}" alt="Logout" class="w-4 h-4 object-contain">
+                                        </div>
+                                        <span>Déconnexion</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

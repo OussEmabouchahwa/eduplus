@@ -8,7 +8,9 @@
     {# ─── Header Row ───────────────────────────────────── #}
     <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
         <div style="background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);border-radius:16px;padding:16px 24px;display:flex;align-items:center;gap:12px">
-            <div style="font-size:26px">📚</div>
+            <div style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                <img src="{{ asset('icons/Library_and_Books_icon.png') }}" alt="Cours" style="width:100%;height:100%;object-fit:contain">
+            </div>
             <div>
                 <div style="font-size:11px;color:#94a3b8;text-transform:uppercase;font-weight:700;letter-spacing:1px">Total Cours</div>
                 <div style="font-size:26px;font-weight:800;color:#fff">{{ courses|length }}</div>
