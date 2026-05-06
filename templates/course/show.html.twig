@@ -1,4 +1,17 @@
 {% extends 'base.html.twig' %}
+{% block body_class %}bg-[#020617] text-slate-200 font-sans antialiased selection:bg-edu-indigo selection:text-white{% endblock %}
+{% block sidebar %}{% endblock %}
+{% block navbar_content %}{% endblock %}
+{% block navbar_brand %}
+    <a href="{{ path('app_home') }}" class="flex items-center gap-4 mr-8 group">
+        <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center group-hover:scale-105 transition-transform shadow-lg">
+            <img src="{{ asset('images/logo.png') }}" alt="EduPulse Logo" class="w-8 h-8 object-contain">
+        </div>
+        <span class="text-2xl font-bold tracking-tight text-white">
+            Edu<span class="text-indigo-400 font-light italic">Pulse</span>
+        </span>
+    </a>
+{% endblock %}
 
 {% block title %}{{ course.title }} | EduPulse{% endblock %}
 
