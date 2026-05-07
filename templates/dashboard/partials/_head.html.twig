@@ -1,0 +1,63 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}EduPulse | Console{% endblock %}</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+
+<link rel="stylesheet" href="{{ asset('build/app.css') }}">
+
+{% block javascripts %}
+    {% block importmap %}{{ importmap('app') }}{% endblock %}
+    <style>
+        /* Guarantee sidebar and main layout regardless of Tailwind compiler state */
+        body.dashboard-layout {
+            display: flex !important;
+            flex-direction: row !important;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+        #sidebar {
+            width: 16rem;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 40;
+            transition: transform 0.3s ease;
+            height: 100%;
+        }
+        /* FIX: Separated header from scrolling content - no overflow conflicts */
+        #main-wrapper {
+            flex: 1 1 0%;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            min-width: 0;
+        }
+        #main-content {
+            flex: 1;
+            overflow-y: auto;
+        }
+        @media (max-width: 768px) {
+            #sidebar {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                transform: translateX(-100%);
+            }
+            #sidebar.open {
+                transform: translateX(0);
+            }
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('mobile-menu-btn');
+            const sidebar = document.getElementById('sidebar');
+            if(btn && sidebar) {
+                btn.addEventListener('click', () => {
+                    sidebar.classList.toggle('open');
+                });
+            }
+        });
+    </script>
+{% endblock %}

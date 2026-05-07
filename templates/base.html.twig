@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}EduPulse{% endblock %}</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-    
     <link rel="stylesheet" href="{{ asset('build/app.css') }}">
     
     {% block stylesheets %}{% endblock %}
@@ -13,17 +12,31 @@
     {% block javascripts %}
         {% block importmap %}{{ importmap('app') }}{% endblock %}
     {% endblock %}
+
+    <script>
+        // Theme initialization
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else {
+            document.documentElement.classList.add('dark');
+        }
+
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+    </script>
 </head>
 
-<body class="{% block body_class %}bg-[#020617] text-slate-200{% endblock %} font-sans antialiased selection:bg-indigo-500 selection:text-white">
+<body class="{% block body_class %}bg-slate-50 dark:bg-[#020617] text-slate-900 dark:text-slate-200{% endblock %} font-sans antialiased selection:bg-indigo-500 selection:text-white transition-colors duration-300">
 
     {# Landing Navbar - Links to page sections + Login/Register #}
     {% block navbar %}
         {{ include('partials/_navbar_landing.html.twig') }}
     {% endblock %}
 
-    {# Page Content #}
-    <main class="{% block main_class %}{% endblock %}">
+    {# Page Content — padding-top matches navbar height (5rem = 80px) #}
+    <main style="padding-top: 5rem; position: relative; z-index: 0;" class="{% block main_class %}{% endblock %}">
         {% block body %}{% endblock %}
     </main>
 

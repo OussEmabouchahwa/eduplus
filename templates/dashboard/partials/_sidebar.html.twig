@@ -1,0 +1,70 @@
+{# Logo Area #}
+<div class="h-20 flex items-center justify-between px-6 border-b border-slate-200 dark:border-white/5 bg-white dark:bg-transparent transition-colors">
+    <a href="{{ path('app_home') }}" class="flex items-center gap-3 cursor-pointer group">
+        <img src="{{ asset('images/logo.png') }}" alt="EduPulse Logo" class="h-10 w-auto group-hover:scale-105 transition-transform">
+        <span class="text-xl font-bold tracking-tight text-slate-800 dark:text-white transition-colors">
+            Edu<span class="text-indigo-500 dark:text-indigo-400 font-light italic">Pulse</span>
+        </span>
+    </a>
+    {# Mobile close button #}
+    <button onclick="toggleSidebar()" class="md:hidden text-slate-400 hover:text-indigo-500 transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+    </button>
+</div>
+
+{# Navigation Links #}
+<nav class="flex-1 py-6 px-4 space-y-8 bg-white dark:bg-transparent transition-colors overflow-y-auto custom-scrollbar">
+    
+    {# Section 1: Principal #}
+    <div class="space-y-1.5">
+        <div class="text-[10px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 px-3">Principal</div>
+        
+        {% set currentRoute = app.request.attributes.get('_route') %}
+        
+        {# Link Helper Macro or Repeated logic for light/dark #}
+        {% set links = [
+            {'path': 'app_dashboard', 'icon': 'Minimalist_house_icon.png', 'label': 'Tableau de bord'},
+            {'path': 'app_courses', 'icon': 'coursecatloge-.png', 'label': 'Catalogue Cours'},
+            {'path': 'app_chat', 'icon': 'messagesSection.png', 'label': 'Messages', 'badge': 'Chat'},
+            {'path': 'app_profile', 'icon': 'authntification.png', 'label': 'Mon Profil'}
+        ] %}
+
+        {% for link in links %}
+            <a href="{{ path(link.path) }}" class="flex items-center justify-between px-3 py-2.5 rounded-xl transition-all group {% if currentRoute starts with link.path %}bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-bold shadow-[inset_4px_0_0_0_rgba(99,102,241,1)]{% else %}text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-slate-200 font-medium{% endif %}">
+                <div class="flex items-center gap-4">
+                    <div class="flex-shrink-0 flex items-center justify-center transition-transform group-hover:scale-110 group-hover:-translate-y-0.5 duration-300">
+                        <img src="{{ asset('icons/' ~ link.icon) }}" alt="{{ link.label }}" class="w-5 h-5 object-contain {% if currentRoute starts with link.path %}drop-shadow-[0_0_8px_rgba(99,102,241,0.5)]{% else %}opacity-70 dark:opacity-100{% endif %}">
+                    </div>
+                    <span class="text-[15px]">{{ link.label }}</span>
+                </div>
+                {% if link.badge is defined %}
+                    <span class="bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 text-[10px] font-bold px-2 py-0.5 rounded-full">{{ link.badge }}</span>
+                {% endif %}
+            </a>
+        {% endfor %}
+    </div>
+
+    {% if is_granted('ROLE_ADMIN') %}
+    {# Section 2: Administration #}
+    <div class="space-y-1.5">
+        <div class="text-[10px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 px-3">Administration</div>
+        
+        {% set adminLinks = [
+            {'path': 'app_admin_user_index', 'icon': 'Group_of_users_icon.png', 'label': 'Utilisateurs'},
+            {'path': 'app_admin_teacher_index', 'icon': 'teatcherr.png', 'label': 'Formateurs'},
+            {'path': 'app_admin_course_index', 'icon': 'Library_and_Books_icon.png', 'label': 'Cours'}
+        ] %}
+
+        {% for link in adminLinks %}
+            <a href="{{ path(link.path) }}" class="flex items-center justify-between px-3 py-2.5 rounded-xl transition-all group {% if currentRoute starts with link.path %}bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-bold shadow-[inset_4px_0_0_0_rgba(99,102,241,1)]{% else %}text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-slate-200 font-medium{% endif %}">
+                <div class="flex items-center gap-4">
+                    <div class="flex-shrink-0 flex items-center justify-center transition-transform group-hover:scale-110 group-hover:-translate-y-0.5 duration-300">
+                        <img src="{{ asset('icons/' ~ link.icon) }}" alt="{{ link.label }}" class="w-5 h-5 object-contain {% if currentRoute starts with link.path %}drop-shadow-[0_0_8px_rgba(99,102,241,0.5)]{% else %}opacity-70 dark:opacity-100{% endif %}">
+                    </div>
+                    <span class="text-[15px]">{{ link.label }}</span>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+    {% endif %}
+</nav>

@@ -1,132 +1,111 @@
-{# =========================================================================
-   LANDING PAGE NAVBAR - Navigation publique avec liens de section
-   ========================================================================= #}
-<nav id="landing-navbar" class="fixed top-0 left-0 right-0 z-50 h-20 flex items-center justify-between px-6 md:px-12 border-b border-white/5 bg-slate-950/80 backdrop-blur-2xl">
+
+
+{# The navbar sits at z-[9999] to always be above hero decorations and page content #}
+<nav id="landing-navbar" style="position:fixed;top:0;left:0;right:0;z-index:9999;height:5rem;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;border-bottom:1px solid rgba(255,255,255,0.05);background:rgba(2,6,23,0.85);backdrop-filter:blur(24px);pointer-events:auto;">
 
     {# Logo #}
-    <a href="{{ path('app_home') }}" class="flex items-center gap-3 group flex-shrink-0">
-        <div class="w-10 h-10 bg-white/5 rounded-2xl flex items-center justify-center group-hover:scale-105 transition-transform shadow-lg">
-            <img src="{{ asset('images/logo.png') }}" alt="EduPulse Logo" class="w-7 h-7 object-contain">
+    <a href="{{ path('app_home') }}" style="display:flex;align-items:center;gap:0.75rem;text-decoration:none;cursor:pointer;flex-shrink:0;pointer-events:auto;">
+        <div style="width:2.5rem;height:2.5rem;background:rgba(255,255,255,0.05);border-radius:0.75rem;display:flex;align-items:center;justify-content:center;">
+            <img src="{{ asset('images/logo.png') }}" alt="EduPulse Logo" style="width:1.75rem;height:1.75rem;object-fit:contain;">
         </div>
-        <span class="text-xl font-bold tracking-tight text-white">
-            Edu<span class="text-indigo-400 font-light italic">Pulse</span>
+        <span style="font-size:1.25rem;font-weight:700;color:white;letter-spacing:-0.025em;">
+            Edu<span style="color:#818cf8;font-style:italic;font-weight:300;">Pulse</span>
         </span>
     </a>
 
-    {# Section Links - Desktop only #}
-    <div class="hidden md:flex items-center gap-1">
-        <a href="#hero"         class="nav-link px-4 py-2 text-sm font-semibold text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">Accueil</a>
-        <a href="#features"     class="nav-link px-4 py-2 text-sm font-semibold text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">Fonctionnalités</a>
-        <a href="#courses"      class="nav-link px-4 py-2 text-sm font-semibold text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">Catalogue</a>
-        <a href="#stats"        class="nav-link px-4 py-2 text-sm font-semibold text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">Statistiques</a>
-        <a href="#testimonials" class="nav-link px-4 py-2 text-sm font-semibold text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">Témoignages</a>
+    {# Section Links - Desktop #}
+    <div class="hidden md:flex" style="align-items:center;gap:0.25rem;pointer-events:auto;">
+        <a href="#hero"         onclick="scrollToSection('hero');return false;"         class="nav-link" style="padding:0.5rem 1rem;font-size:0.875rem;font-weight:600;color:#94a3b8;text-decoration:none;border-radius:0.75rem;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.color='white';this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.color='#94a3b8';this.style.background='transparent'">Accueil</a>
+        <a href="#features"     onclick="scrollToSection('features');return false;"     class="nav-link" style="padding:0.5rem 1rem;font-size:0.875rem;font-weight:600;color:#94a3b8;text-decoration:none;border-radius:0.75rem;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.color='white';this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.color='#94a3b8';this.style.background='transparent'">Fonctionnalités</a>
+        <a href="#courses"      onclick="scrollToSection('courses');return false;"      class="nav-link" style="padding:0.5rem 1rem;font-size:0.875rem;font-weight:600;color:#94a3b8;text-decoration:none;border-radius:0.75rem;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.color='white';this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.color='#94a3b8';this.style.background='transparent'">Catalogue</a>
+        <a href="#stats"        onclick="scrollToSection('stats');return false;"        class="nav-link" style="padding:0.5rem 1rem;font-size:0.875rem;font-weight:600;color:#94a3b8;text-decoration:none;border-radius:0.75rem;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.color='white';this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.color='#94a3b8';this.style.background='transparent'">Statistiques</a>
+        <a href="#testimonials" onclick="scrollToSection('testimonials');return false;" class="nav-link" style="padding:0.5rem 1rem;font-size:0.875rem;font-weight:600;color:#94a3b8;text-decoration:none;border-radius:0.75rem;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.color='white';this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.color='#94a3b8';this.style.background='transparent'">Témoignages</a>
     </div>
 
     {# Right: Auth Buttons — always visible + Mobile burger #}
-    <div class="flex items-center gap-2 md:gap-3">
+    <div style="display:flex;align-items:center;gap:0.75rem;pointer-events:auto;">
+
+        {# Theme Toggle #}
+        <button onclick="toggleTheme()" style="padding:0.5rem;color:#94a3b8;background:transparent;border:none;border-radius:0.75rem;cursor:pointer;pointer-events:auto;transition:all 0.2s;" onmouseover="this.style.color='white';this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.color='#94a3b8';this.style.background='transparent'">
+            <div class="relative w-6 h-6 flex items-center justify-center">
+                <!-- Moon (visible when NOT dark) -->
+                <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                </svg>
+                <!-- Sun (visible when dark) -->
+                <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 9H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                </svg>
+            </div>
+        </button>
 
         {% if app.user %}
-            {# Logged in: show dashboard button #}
-            <a href="{{ path('app_dashboard') }}" class="flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 bg-indigo-500 hover:bg-indigo-400 text-white font-black text-sm rounded-2xl transition-all shadow-lg shadow-indigo-500/20 hover:-translate-y-0.5 active:scale-95">
-                <img src="{{ asset('icons/Minimalist_house_icon.png') }}" alt="" class="w-4 h-4 object-contain">
-                <span class="hidden sm:inline">Tableau de bord</span>
+            <a href="{{ path('app_dashboard') }}" style="display:flex;align-items:center;gap:0.5rem;padding:0.625rem 1.25rem;background:#6366f1;color:white;font-weight:900;font-size:0.875rem;border-radius:1rem;text-decoration:none;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 20px rgba(99,102,241,0.3);" onmouseover="this.style.background='#818cf8';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#6366f1';this.style.transform='translateY(0)'">
+                <img src="{{ asset('icons/Minimalist_house_icon.png') }}" alt="" style="width:1rem;height:1rem;object-fit:contain;">
+                <span>Tableau de bord</span>
             </a>
         {% else %}
-            {# Not logged in: always-visible Login + Register #}
-            <a href="{{ path('app_login') }}" class="px-4 py-2 text-sm font-bold text-slate-300 hover:text-white transition-colors rounded-xl hover:bg-white/5">
+            <a href="{{ path('app_login') }}" style="padding:0.5rem 1rem;font-size:0.875rem;font-weight:700;color:#cbd5e1;text-decoration:none;border-radius:0.75rem;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.color='white';this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.color='#cbd5e1';this.style.background='transparent'">
                 Connexion
             </a>
-            <a href="{{ path('app_register') }}" class="px-4 py-2 md:px-5 md:py-2.5 bg-indigo-500 hover:bg-indigo-400 text-white font-black text-sm rounded-2xl transition-all shadow-lg shadow-indigo-500/20 hover:-translate-y-0.5 active:scale-95">
+            <a href="{{ path('app_register') }}" style="padding:0.625rem 1.25rem;background:#6366f1;color:white;font-weight:900;font-size:0.875rem;border-radius:1rem;text-decoration:none;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 20px rgba(99,102,241,0.3);" onmouseover="this.style.background='#818cf8';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#6366f1';this.style.transform='translateY(0)'">
                 S'inscrire
             </a>
         {% endif %}
 
-        {# Mobile Burger - only for section links #}
-        <button id="landing-menu-btn" class="md:hidden p-2 text-slate-400 hover:text-white rounded-xl hover:bg-white/5 transition-colors">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        {# Mobile Burger #}
+        <button id="landing-menu-btn" onclick="toggleMobileMenu()" style="display:none;padding:0.5rem;color:#94a3b8;background:transparent;border:none;border-radius:0.75rem;cursor:pointer;pointer-events:auto;" class="md-hidden-show-sm">
+            <svg style="width:1.5rem;height:1.5rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
         </button>
     </div>
 </nav>
 
-{# Mobile Section Links Drawer (auth buttons already in navbar) #}
-<div id="landing-mobile-menu" class="fixed inset-x-0 top-20 z-40 hidden md:hidden">
-    <div class="mx-4 mt-2 bg-slate-900/98 backdrop-blur-2xl border border-white/10 rounded-3xl shadow-2xl p-4 space-y-1">
-        <a href="#hero" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-300 hover:text-white hover:bg-white/5 rounded-2xl transition-all">
-            <img src="{{ asset('icons/Minimalist_house_icon.png') }}" alt="" class="w-5 h-5 object-contain opacity-60">
-            Accueil
+{# Mobile Section Links Drawer #}
+<div id="landing-mobile-menu" style="display:none;position:fixed;left:0;right:0;top:5rem;z-index:9998;padding:0 1rem;">
+    <div style="background:rgba(15,23,42,0.99);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,0.1);border-radius:1.5rem;box-shadow:0 25px 50px rgba(0,0,0,0.5);padding:1rem;">
+        <a href="#hero"         onclick="scrollToSection('hero');toggleMobileMenu();return false;"         style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;font-size:0.875rem;font-weight:600;color:#cbd5e1;text-decoration:none;border-radius:1rem;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">
+            <img src="{{ asset('icons/Minimalist_house_icon.png') }}" alt="" style="width:1.25rem;height:1.25rem;object-fit:contain;opacity:0.6;">Accueil
         </a>
-        <a href="#features" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-300 hover:text-white hover:bg-white/5 rounded-2xl transition-all">
-            <img src="{{ asset('icons/Library_and_Books_icon.png') }}" alt="" class="w-5 h-5 object-contain opacity-60">
-            Fonctionnalités
+        <a href="#features"     onclick="scrollToSection('features');toggleMobileMenu();return false;"     style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;font-size:0.875rem;font-weight:600;color:#cbd5e1;text-decoration:none;border-radius:1rem;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">
+            <img src="{{ asset('icons/Library_and_Books_icon.png') }}" alt="" style="width:1.25rem;height:1.25rem;object-fit:contain;opacity:0.6;">Fonctionnalités
         </a>
-        <a href="#courses" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-300 hover:text-white hover:bg-white/5 rounded-2xl transition-all">
-            <img src="{{ asset('icons/coursecatloge-.png') }}" alt="" class="w-5 h-5 object-contain opacity-60">
-            Catalogue
+        <a href="#courses"      onclick="scrollToSection('courses');toggleMobileMenu();return false;"      style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;font-size:0.875rem;font-weight:600;color:#cbd5e1;text-decoration:none;border-radius:1rem;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">
+            <img src="{{ asset('icons/coursecatloge-.png') }}" alt="" style="width:1.25rem;height:1.25rem;object-fit:contain;opacity:0.6;">Catalogue
         </a>
-        <a href="#stats" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-300 hover:text-white hover:bg-white/5 rounded-2xl transition-all">
-            <img src="{{ asset('icons/Group_of_users_icon.png') }}" alt="" class="w-5 h-5 object-contain opacity-60">
-            Statistiques
-        </a>
-        <a href="#testimonials" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-300 hover:text-white hover:bg-white/5 rounded-2xl transition-all">
-            <img src="{{ asset('icons/messagesSection.png') }}" alt="" class="w-5 h-5 object-contain opacity-60">
-            Témoignages
+        <a href="#stats"        onclick="scrollToSection('stats');toggleMobileMenu();return false;"        style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;font-size:0.875rem;font-weight:600;color:#cbd5e1;text-decoration:none;border-radius:1rem;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">
+            <img src="{{ asset('icons/Group_of_users_icon.png') }}" alt="" style="width:1.25rem;height:1.25rem;object-fit:contain;opacity:0.6;">Statistiques
         </a>
     </div>
 </div>
 
 <style>
-    /* Smooth scroll with offset to account for fixed navbar height */
+    /* Smooth scroll with navbar offset */
     html { scroll-behavior: smooth; }
-    section[id], div[id] { scroll-margin-top: 5rem; }
+    section[id] { scroll-margin-top: 5rem; }
 
-    /* Active nav link style */
-    .nav-link.active {
-        color: white;
-        background: rgba(255,255,255,0.08);
+    /* Show burger on small screens */
+    @media (max-width: 768px) {
+        .md-hidden-show-sm { display: block !important; }
     }
 </style>
 
 <script>
-    // Mobile menu toggle
-    document.getElementById('landing-menu-btn').addEventListener('click', function() {
+    function scrollToSection(id) {
+        const el = document.getElementById(id);
+        if (el) {
+            const top = el.getBoundingClientRect().top + window.scrollY - 80;
+            window.scrollTo({ top: top, behavior: 'smooth' });
+        }
+    }
+
+    function toggleMobileMenu() {
         const menu = document.getElementById('landing-mobile-menu');
-        menu.classList.toggle('hidden');
-    });
-
-    // Close mobile menu on link click & smooth scroll with navbar offset
-    document.querySelectorAll('#landing-mobile-menu a, .nav-link').forEach(link => {
-        link.addEventListener('click', (e) => {
-            const href = link.getAttribute('href');
-            if (href && href.startsWith('#')) {
-                e.preventDefault();
-                document.getElementById('landing-mobile-menu').classList.add('hidden');
-                const target = document.querySelector(href);
-                if (target) {
-                    const offset = 80; // navbar height
-                    const top = target.getBoundingClientRect().top + window.scrollY - offset;
-                    window.scrollTo({ top, behavior: 'smooth' });
-                }
-            }
-        });
-    });
-
-    // Highlight active nav link on scroll
-    const sections = document.querySelectorAll('section[id], div[id]');
-    const navLinks = document.querySelectorAll('.nav-link');
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === '#' + entry.target.id) {
-                        link.classList.add('active');
-                    }
-                });
-            }
-        });
-    }, { rootMargin: '-30% 0px -60% 0px' });
-
-    sections.forEach(section => observer.observe(section));
+        if (menu.style.display === 'none' || menu.style.display === '') {
+            menu.style.display = 'block';
+        } else {
+            menu.style.display = 'none';
+        }
+    }
 </script>
