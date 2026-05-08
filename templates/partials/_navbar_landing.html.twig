@@ -25,20 +25,6 @@
     {# Right: Auth Buttons — always visible + Mobile burger #}
     <div style="display:flex;align-items:center;gap:0.75rem;pointer-events:auto;">
 
-        {# Theme Toggle #}
-        <button onclick="toggleTheme()" style="padding:0.5rem;color:#94a3b8;background:transparent;border:none;border-radius:0.75rem;cursor:pointer;pointer-events:auto;transition:all 0.2s;" onmouseover="this.style.color='white';this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.color='#94a3b8';this.style.background='transparent'">
-            <div class="relative w-6 h-6 flex items-center justify-center">
-                <!-- Moon (visible when NOT dark) -->
-                <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-                </svg>
-                <!-- Sun (visible when dark) -->
-                <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 9H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                </svg>
-            </div>
-        </button>
-
         {% if app.user %}
             <a href="{{ path('app_dashboard') }}" style="display:flex;align-items:center;gap:0.5rem;padding:0.625rem 1.25rem;background:#6366f1;color:white;font-weight:900;font-size:0.875rem;border-radius:1rem;text-decoration:none;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 20px rgba(99,102,241,0.3);" onmouseover="this.style.background='#818cf8';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#6366f1';this.style.transform='translateY(0)'">
                 <img src="{{ asset('icons/Minimalist_house_icon.png') }}" alt="" style="width:1rem;height:1rem;object-fit:contain;">
