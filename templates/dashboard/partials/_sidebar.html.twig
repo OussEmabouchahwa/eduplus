@@ -4,18 +4,28 @@
     <div class="h-20 flex items-center justify-between px-6">
         <a href="{{ path('app_home') }}" class="flex items-center gap-3 cursor-pointer group">
             <img src="{{ asset('images/logo.png') }}" alt="EduPulse Logo" class="h-10 w-auto group-hover:scale-105 transition-transform">
-            <span class="text-xl font-bold tracking-tight text-white">
+            <span class="text-xl font-bold tracking-tight text-white sidebar-text">
                 Edu<span class="text-indigo-400 font-light italic">Pulse</span>
             </span>
         </a>
+        
+        {# Desktop Collapse Button #}
+        <button onclick="toggleSidebar()" class="hidden md:flex items-center justify-center w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 hover:bg-indigo-500/20 hover:text-indigo-300 transition-all shadow-lg shadow-indigo-500/5">
+            <svg class="w-5 h-5 transition-transform duration-300 body.sidebar-collapsed:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path>
+            </svg>
+        </button>
+
         {# Bouton de fermeture sur mobile #}
-        <button id="mobile-menu-btn" class="md:hidden text-slate-400 hover:text-white">
+        <button onclick="toggleSidebar()" class="md:hidden text-indigo-400 bg-indigo-500/10 p-2.5 rounded-xl border border-indigo-500/20 hover:bg-indigo-500/20 hover:text-indigo-300 transition-all">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
+
     </div>
 
+
     {# Navigation Links #}
-    <nav class="flex-1 py-6 px-4 space-y-8">
+    <nav class="flex-1 py-6 px-4 space-y-8 overflow-y-auto custom-scrollbar">
         
         {# Section 1: Principal #}
         <div class="space-y-1.5">
@@ -95,4 +105,25 @@
         {% endif %}
         
     </nav>
+
+    {# Logout Button Area #}
+    <div class="p-4 border-t border-white/5 bg-slate-900/50">
+        <a href="{{ path('app_logout') }}" 
+           class="flex items-center gap-4 px-4 py-3 rounded-xl text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-all group overflow-hidden relative">
+            <div class="absolute inset-0 bg-gradient-to-r from-red-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            
+            <div class="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-red-500/10 group-hover:scale-110 transition-transform duration-300">
+                <img src="{{ asset('icons/Logout_icon_exit.png') }}" alt="Déconnexion" class="w-5 h-5 object-contain">
+            </div>
+            
+            <div class="flex flex-col">
+                <span class="text-[14px] font-bold tracking-tight">Déconnexion</span>
+                <span class="text-[10px] text-slate-500 group-hover:text-red-400/60 transition-colors uppercase font-black tracking-widest">Quitter la session</span>
+            </div>
+
+            <div class="ml-auto opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </div>
+        </a>
+    </div>
 </aside>
