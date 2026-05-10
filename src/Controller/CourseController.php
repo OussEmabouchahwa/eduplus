@@ -31,4 +31,17 @@ class CourseController extends AbstractController
             'course' => $course,
         ]);
     }
+
+    #[Route('/enroll/{id}', name: 'app_course_enroll', methods: ['POST'])]
+    public function enroll(\App\Entity\Course $course, \Doctrine\ORM\EntityManagerInterface $em): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        
+        $user = $this->getUser();
+        $course->addStudent($user);
+        $em->flush();
+        
+        $this->addFlash('success', 'Félicitations ! Vous êtes inscrit au cours "' . $course->getTitle() . '".');
+        return $this->redirectToRoute('app_dashboard_student');
+    }
 }

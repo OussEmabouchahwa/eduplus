@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/dashboard')]
+#[IsGranted('ROLE_USER')]
 class DashboardController extends AbstractController
 {
     #[Route('', name: 'app_dashboard')]
@@ -24,7 +25,18 @@ class DashboardController extends AbstractController
             return $this->redirectToRoute('app_dashboard_teacher');
         }
 
-        return $this->redirectToRoute('app_home');
+        return $this->redirectToRoute('app_dashboard_student');
+    }
+
+    #[Route('/student', name: 'app_dashboard_student')]
+    public function student(): Response
+    {
+        $user = $this->getUser();
+        $enrolledCourses = $user->getEnrolledCourses();
+
+        return $this->render('dashboard/student.html.twig', [
+            'enrolledCourses' => $enrolledCourses,
+        ]);
     }
 
     #[Route('/teacher', name: 'app_dashboard_teacher')]

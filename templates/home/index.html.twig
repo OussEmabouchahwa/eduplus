@@ -134,34 +134,69 @@
 </section>
 
 {# =========================================================================
-   3. LEARNING SPACE SECTION (Aperçu du produit)
+   3. COURSES GRID SECTION (Dynamic)
    ========================================================================= #}
 <section id="courses" class="py-32 relative overflow-hidden bg-[#020617]">
     {# Décoration de fond massif #}
     <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-600/10 rounded-full blur-[150px] pointer-events-none"></div>
     
-    <div class="container mx-auto px-6 relative z-10 text-center">
-        <h2 class="text-4xl lg:text-6xl font-black text-white mb-8 tracking-tight">Votre nouvel <span class="text-gradient italic">Espace de Travail</span></h2>
-        <p class="text-xl text-slate-400 mb-16 max-w-3xl mx-auto font-light leading-relaxed">Une interface scindée pensée pour la productivité absolue. Suivez vos leçons d'un côté, et collaborez avec la communauté de l'autre.</p>
-        
-        <div class="relative max-w-6xl mx-auto rounded-[2.5rem] overflow-hidden glass-card border border-white/10 shadow-[0_0_80px_rgba(99,102,241,0.15)] group">
-            <div class="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent z-10 opacity-70"></div>
-            
-            {# Image Officielle Learning Space #}
-            <img src="{{ asset('images/landingpage/Learning Space.png') }}" alt="Interface EduPulse Double Écran" class="w-full object-cover transform transition-transform duration-[2000ms] group-hover:scale-[1.03]">
-            
-            {# Overlay Bouton Play (3D Style) #}
-            <div class="absolute inset-0 z-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-slate-950/40 backdrop-blur-sm">
-                <a href="{{ path('app_courses') }}" class="relative group/btn flex flex-col items-center gap-6">
-                    <div class="w-24 h-24 rounded-full bg-white/10 border border-white/20 backdrop-blur-2xl flex items-center justify-center transition-transform hover:scale-110 shadow-2xl">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-white fill-white">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z" />
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="text-center mb-20">
+            <h2 class="text-4xl lg:text-6xl font-black text-white mb-8 tracking-tight">Nos <span class="text-gradient italic">Formations</span></h2>
+            <p class="text-xl text-slate-400 max-w-2xl mx-auto font-light leading-relaxed">Explorez nos programmes intensifs et rejoignez la communauté EduPulse.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            {% for course in courses %}
+                <div class="glass-card rounded-[2.5rem] overflow-hidden group transition-all duration-500 hover:-translate-y-2 border-white/5 hover:border-indigo-500/30 flex flex-col shadow-2xl">
+                    {# Course Image Wrapper #}
+                    <div class="relative h-64 overflow-hidden">
+                        {% set imgSrc = course.imagePath ? (course.imagePath starts with 'courses/' ? asset('images/' ~ course.imagePath) : asset('uploads/courses/' ~ course.imagePath)) : asset('images/landingpage/Learning Space.png') %}
+                        <img src="{{ imgSrc }}" alt="{{ course.title }}" class="w-full h-full object-cover transform transition-transform duration-1000 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60"></div>
+                        
+                        {# Category Badge #}
+                        <div class="absolute top-6 left-6 px-4 py-1.5 rounded-full bg-indigo-500/20 backdrop-blur-md border border-indigo-500/30 text-indigo-300 text-[10px] font-black uppercase tracking-widest">
+                            Formation Pro
+                        </div>
                     </div>
-                    <span class="text-white font-black text-2xl tracking-widest uppercase opacity-0 group-hover/btn:opacity-100 transition-all transform translate-y-4 group-hover/btn:translate-y-0">Essayer la console</span>
-                </a>
-            </div>
+
+                    {# Course Content #}
+                    <div class="p-8 flex flex-col flex-1">
+                        <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-indigo-400 transition-colors">{{ course.title }}</h3>
+                        <p class="text-slate-400 text-sm font-light leading-relaxed mb-8 flex-1">
+                            {{ course.description|length > 120 ? course.description|slice(0, 120) ~ '...' : course.description }}
+                        </p>
+                        
+                        <div class="flex items-center justify-between pt-6 border-t border-white/5 mt-auto">
+                            <div class="flex items-center gap-2">
+                                <div class="w-8 h-8 rounded-full bg-slate-800 border border-white/10 flex items-center justify-center text-[10px] text-slate-400 font-bold">
+                                    EP
+                                </div>
+                                <span class="text-xs text-slate-500 font-medium italic">Par EduPulse</span>
+                            </div>
+
+                            {% if app.user %}
+                                {% if app.user.enrolledCourses.contains(course) %}
+                                    <a href="{{ path('app_dashboard_student') }}" class="px-6 py-3 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-black uppercase tracking-widest transition-all hover:bg-emerald-500 hover:text-white">
+                                        Accéder
+                                    </a>
+                                {% else %}
+                                    <form action="{{ path('app_course_enroll', {'id': course.id}) }}" method="POST">
+                                        <button type="submit" class="px-6 py-3 rounded-xl bg-indigo-500 hover:bg-indigo-400 text-white shadow-lg shadow-indigo-500/20 text-xs font-black uppercase tracking-widest transition-all">
+                                            Rejoindre
+                                        </button>
+                                    </form>
+                                {% endif %}
+                            {% else %}
+                                <a href="{{ path('app_register') }}" class="px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-white border border-white/10 text-xs font-black uppercase tracking-widest transition-all">
+                                    S'inscrire
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 </section>

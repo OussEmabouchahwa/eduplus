@@ -51,6 +51,31 @@ class UserProfileType extends AbstractType
                     ])
                 ],
             ])
+            ->add('specialization', TextType::class, [
+                'label' => 'Spécialisation',
+                'required' => false,
+                'attr' => ['placeholder' => 'Ex: Fullstack Developer, UX Designer...'],
+            ])
+            ->add('experience', TextType::class, [
+                'label' => 'Expérience (années)',
+                'required' => false,
+                'attr' => ['placeholder' => 'Nombre d\'années d\'expérience'],
+            ])
+            ->add('major', TextType::class, [
+                'label' => 'Filière / Études',
+                'required' => false,
+                'attr' => ['placeholder' => 'Ex: Informatique, Design Graphique...'],
+            ])
+            ->add('githubUrl', TextType::class, [
+                'label' => 'Lien GitHub',
+                'required' => false,
+                'attr' => ['placeholder' => 'https://github.com/votre-compte'],
+            ])
+            ->add('linkedinUrl', TextType::class, [
+                'label' => 'Lien LinkedIn',
+                'required' => false,
+                'attr' => ['placeholder' => 'https://linkedin.com/in/votre-profil'],
+            ])
         ;
     }
 

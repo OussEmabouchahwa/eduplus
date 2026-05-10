@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}EduPulse | Console{% endblock %}</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    <link rel="icon" href="{{ asset('images/logo.png') }}">
     
     <link rel="stylesheet" href="{{ asset('build/app.css') }}">
     
@@ -22,15 +22,13 @@
     <div id="main-wrapper" class="bg-edu-slate relative z-10 w-full flex flex-col">
         
         {# Header Area #}
-        <header class="h-20 border-b border-white/5 bg-slate-950/80 backdrop-blur-2xl flex items-center justify-start px-8 md:px-12 relative z-[100] flex-shrink-0 shadow-sm gap-8">
+        <header class="h-20 border-b border-white/5 bg-slate-950/80 backdrop-blur-2xl flex items-center justify-start px-8 md:px-12 relative z-[500] flex-shrink-0 shadow-sm gap-8">
              <div class="flex items-center gap-6">
-                {# Sidebar Toggle Button (Always visible on mobile, visible on desktop to expand) #}
-                <button onclick="toggleSidebar()" class="flex p-3 text-indigo-400 bg-indigo-500/5 hover:bg-indigo-500/15 hover:text-indigo-300 border border-indigo-500/20 rounded-2xl transition-all group shadow-lg shadow-indigo-500/5">
-                    <div class="relative w-8 h-8 flex flex-col items-center justify-center gap-1.5">
-                        <span class="w-6 h-0.5 bg-current rounded-full transition-all group-hover:w-7 group-hover:translate-x-0.5"></span>
-                        <span class="w-6 h-0.5 bg-current rounded-full transition-all"></span>
-                        <span class="w-4 h-0.5 bg-current rounded-full self-start transition-all group-hover:w-7"></span>
-                    </div>
+                {# Sidebar Toggle Button with Burger Icon #}
+                <button onclick="toggleSidebar()" class="flex p-3 text-white bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl transition-all group shadow-lg">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
                 </button>
                 
                 {# Page Title Block #}

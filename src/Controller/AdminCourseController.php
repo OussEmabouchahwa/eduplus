@@ -14,10 +14,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/admin/courses')]
-#[IsGranted('ROLE_ADMIN')]
 class AdminCourseController extends AbstractController
 {
     #[Route('/', name: 'app_admin_course_index', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function index(CourseRepository $courseRepository): Response
     {
         return $this->render('admin/course/index.html.twig', [
@@ -26,6 +26,7 @@ class AdminCourseController extends AbstractController
     }
 
     #[Route('/new', name: 'app_admin_course_new', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request, EntityManagerInterface $em): Response
     {
         if (!$this->isCsrfTokenValid('new_course', $request->request->get('_token'))) {
@@ -71,8 +72,14 @@ class AdminCourseController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_admin_course_show', methods: ['GET'])]
+    #[IsGranted('ROLE_TEACHER')]
     public function show(Course $course, UserRepository $userRepository): Response
     {
+        // Teachers can only see their own courses
+        if (!$this->isGranted('ROLE_ADMIN') && $course->getTeacher() !== $this->getUser()) {
+            throw $this->createAccessDeniedException('Vous n\'avez pas accès à ce cours.');
+        }
+
         $teachers = $userRepository->findUsersByRole('ROLE_TEACHER');
         $students = $userRepository->findUsersByRole('ROLE_USER');
 
@@ -85,6 +92,7 @@ class AdminCourseController extends AbstractController
 
     /** Assign or remove a teacher from a course */
     #[Route('/{id}/assign-teacher', name: 'app_admin_course_assign_teacher', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function assignTeacher(
         Course $course,
         Request $request,
@@ -117,6 +125,7 @@ class AdminCourseController extends AbstractController
 
     /** Enroll a student in a course */
     #[Route('/{id}/enroll/{studentId}', name: 'app_admin_course_enroll', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function enroll(
         Course $course,
         int $studentId,
@@ -141,6 +150,7 @@ class AdminCourseController extends AbstractController
 
     /** Remove a student from a course */
     #[Route('/{id}/unenroll/{studentId}', name: 'app_admin_course_unenroll', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function unenroll(
         Course $course,
         int $studentId,

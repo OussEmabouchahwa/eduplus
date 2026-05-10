@@ -59,6 +59,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $bio = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $specialization = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $experience = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $major = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $githubUrl = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $linkedinUrl = null;
+
     /**
      * @var Collection<int, Message>
      */
@@ -196,6 +211,61 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setBio(?string $bio): static
     {
         $this->bio = $bio;
+        return $this;
+    }
+
+    public function getSpecialization(): ?string
+    {
+        return $this->specialization;
+    }
+
+    public function setSpecialization(?string $specialization): static
+    {
+        $this->specialization = $specialization;
+        return $this;
+    }
+
+    public function getExperience(): ?int
+    {
+        return $this->experience;
+    }
+
+    public function setExperience(?int $experience): static
+    {
+        $this->experience = $experience;
+        return $this;
+    }
+
+    public function getMajor(): ?string
+    {
+        return $this->major;
+    }
+
+    public function setMajor(?string $major): static
+    {
+        $this->major = $major;
+        return $this;
+    }
+
+    public function getGithubUrl(): ?string
+    {
+        return $this->githubUrl;
+    }
+
+    public function setGithubUrl(?string $githubUrl): static
+    {
+        $this->githubUrl = $githubUrl;
+        return $this;
+    }
+
+    public function getLinkedinUrl(): ?string
+    {
+        return $this->linkedinUrl;
+    }
+
+    public function setLinkedinUrl(?string $linkedinUrl): static
+    {
+        $this->linkedinUrl = $linkedinUrl;
         return $this;
     }
 

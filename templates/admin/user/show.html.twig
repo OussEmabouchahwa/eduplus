@@ -41,8 +41,9 @@
                         {% endif %}
                     </div>
                 </div>
-                <a href="{{ path('app_admin_user_edit', {id: user.id}) }}" style="padding:10px 20px;border-radius:12px;background:rgba(99,102,241,0.2);border:1px solid rgba(99,102,241,0.3);color:#818cf8;font-size:13px;font-weight:600;text-decoration:none;transition:all 0.2s" onmouseover="this.style.background='rgba(99,102,241,0.35)'" onmouseout="this.style.background='rgba(99,102,241,0.2)'">
-                    ✏️ Modifier le profil
+                <a href="{{ path('app_admin_user_edit', {id: user.id}) }}" class="flex items-center gap-2 px-6 py-3 rounded-xl bg-indigo-500/20 border border-indigo-500/30 text-indigo-400 hover:bg-indigo-500/30 transition-all text-sm font-black uppercase tracking-widest shadow-xl shadow-indigo-500/5">
+                    <img src="{{ asset('icons/edit icons.png') }}" class="w-5 h-5 object-contain" alt="">
+                    Modifier le profil
                 </a>
             </div>
 

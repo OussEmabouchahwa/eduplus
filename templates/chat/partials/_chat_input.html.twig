@@ -1,25 +1,26 @@
 {# Chat Input (Floating Pill) #}
-<div class="sticky bottom-4 left-0 right-0 z-40 mt-10">
-    <div class="bg-slate-900/80 backdrop-blur-2xl border border-white/10 rounded-[2rem] p-3 shadow-2xl shadow-black/50 max-w-4xl mx-auto flex items-end gap-3 ring-1 ring-white/5">
-        <button class="w-12 h-12 flex-shrink-0 rounded-full hover:bg-white/5 text-slate-400 hover:text-indigo-400 transition-all flex items-center justify-center">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
+<div class="sticky bottom-6 left-0 right-0 z-40 mt-12 px-6">
+    <div class="bg-slate-900/60 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] p-2.5 shadow-2xl shadow-indigo-500/5 max-w-4xl mx-auto flex items-end gap-3 ring-1 ring-white/5 group/input focus-within:ring-indigo-500/30 transition-all duration-500">
+        <button class="w-12 h-12 flex-shrink-0 rounded-full hover:bg-white/10 text-slate-500 hover:text-indigo-400 transition-all flex items-center justify-center group/btn">
+            <svg class="w-6 h-6 transition-transform group-hover/btn:rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
         </button>
         
         <form class="flex-1 flex items-end gap-3" data-action="submit->chat#submit">
-            <div class="flex-1">
+            <div class="flex-1 pb-1">
                 <textarea rows="1" 
                        data-chat-target="input"
-                       placeholder="Votre message ici..." 
-                       class="w-full bg-transparent border-none text-white placeholder-slate-500 py-3 focus:outline-none focus:ring-0 resize-none max-h-[150px] text-[15.5px] font-medium"
+                       placeholder="Écrivez votre message ici..." 
+                       class="w-full bg-transparent border-none text-white placeholder-slate-600 py-3.5 focus:outline-none focus:ring-0 resize-none max-h-[180px] text-[15px] font-medium leading-relaxed custom-scrollbar"
                        style="field-sizing: content;"
                        onkeydown="if(event.keyCode == 13 && !event.shiftKey) { event.preventDefault(); this.form.dispatchEvent(new Event('submit', {cancelable: true, bubbles: true})); }"></textarea>
             </div>
             
-            <button type="submit" class="w-12 h-12 flex-shrink-0 rounded-full bg-indigo-500 hover:bg-indigo-400 text-white flex items-center justify-center shadow-lg shadow-indigo-500/40 transition-all group active:scale-95">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform group-hover:rotate-12 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9-2-9-18-9 18 9 2zm0 0v-8" />
+            <button type="submit" class="w-12 h-12 flex-shrink-0 rounded-full bg-gradient-to-tr from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white flex items-center justify-center shadow-lg shadow-indigo-600/20 transition-all group active:scale-90">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 19l9-2-9-18-9 18 9 2zm0 0v-8" />
                 </svg>
             </button>
         </form>
     </div>
 </div>
+
