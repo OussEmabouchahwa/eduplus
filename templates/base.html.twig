@@ -23,9 +23,10 @@
     {% endblock %}
 
     {# Page Content — padding-top matches navbar height (5rem = 80px) #}
-    <main style="padding-top: 5rem; position: relative; z-index: 0;" class="{% block main_class %}{% endblock %}">
-        {% block body %}{% endblock %}
-    </main>
-
+<main style="padding-top: 5rem; position: relative; z-index: 0;" class="{% block main_class %}{% endblock %}">
+{% block body %}
+    {% endblock %}
+</main>
+{% include 'partials/_footer.html.twig' %}
 </body>
 </html>

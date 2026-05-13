@@ -1,0 +1,22 @@
+{# Premium footer component #}
+<footer class="bg-[#020617] text-slate-300 py-12">
+  <div class="container mx-auto px-6 grid md:grid-cols-3 gap-8">
+    <div class="space-y-4">
+      <h3 class="text-xl font-bold text-white">EduPulse</h3>
+      <p class="text-sm">Apprentissage hybride & temps réel.</p>
+    </div>
+    <nav class="space-y-2">
+      <a href="{{ path('app_home') }}" class="block hover:text-white">Accueil</a>
+      <a href="#features" class="block hover:text-white">Fonctionnalités</a>
+      <a href="#courses" class="block hover:text-white">Catalogue</a>
+      <a href="#stats" class="block hover:text-white">Statistiques</a>
+    </nav>
+    <div class="space-y-4">
+      <p class="text-sm">&copy; {{ "now"|date('Y') }} Oussama Bouchahwa</p>
+      <div class="flex gap-4">
+        <a href="https://github.com/your-repo" target="_blank" class="hover:opacity-75"><img src="{{ asset('icons/github.svg') }}" alt="GitHub" class="w-5 h-5"></a>
+        <a href="https://twitter.com/your-handle" target="_blank" class="hover:opacity-75"><img src="{{ asset('icons/twitter.svg') }}" alt="Twitter" class="w-5 h-5"></a>
+      </div>
+    </div>
+  </div>
+</footer>

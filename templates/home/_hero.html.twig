@@ -1,0 +1,49 @@
+{# Hero Section (extracted from original index.html.twig) #}
+<section id="hero" class="relative py-40 lg:py-64 overflow-hidden bg-[#020617]">
+    {# Éléments de décoration (Néon flouté) #}
+    <div class="absolute top-0 left-0 w-[500px] h-[500px] bg-indigo-600/20 rounded-full mix-blend-screen filter blur-[120px] opacity-60 animate-pulse pointer-events-none"></div>
+    <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-cyan-600/10 rounded-full mix-blend-screen filter blur-[120px] opacity-60 pointer-events-none"></div>
+
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div class="space-y-10">
+                <div class="inline-flex items-center gap-3 px-5 py-2.5 rounded-full glass-card border-indigo-500/30 text-indigo-300 text-xs font-bold tracking-[0.2em] uppercase shadow-[0_0_15px_rgba(99,102,241,0.15)]">
+                    <span class="relative flex h-3 w-3">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-indigo-500"></span>
+                    </span>
+                    La nouvelle ère du LMS
+                </div>
+                <h1 class="text-5xl lg:text-7xl font-black text-white leading-[1.15] tracking-tight">
+                    Apprenez, Codez et <br/>
+                    <span class="text-gradient italic">Échangez en Direct.</span>
+                </h1>
+                <p class="text-lg lg:text-xl text-slate-400 leading-relaxed max-w-xl font-light">
+                    EduPulse redéfinit la formation technologique. Profitez de cours premium et de salons de discussion en temps réel propulsés par <strong class="text-slate-200">Mercure</strong>. Accélérez votre carrière dès aujourd'hui.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-5 pt-4">
+                    <a href="{{ path('app_register') }}" class="group bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-400 hover:to-cyan-400 text-white rounded-xl text-center font-bold py-4 px-8 text-lg flex items-center justify-center gap-3 transition-all duration-300 shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_30px_rgba(34,211,238,0.5)] hover:-translate-y-1">
+                        Commencer gratuitement
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white group-hover:translate-x-1 transition-transform duration-300">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+                        </svg>
+                    </a>
+                    <a href="{{ path('app_courses') }}" class="glass-card text-slate-300 text-center font-semibold py-4 px-8 hover:bg-white/10 hover:text-white rounded-xl flex items-center justify-center gap-3 transition-all duration-300">
+                        Découvrir le programmeF
+                    </a>
+                </div>
+            </div>
+            <div class="relative group perspective-1000 hidden lg:block">
+                <div class="absolute -inset-4 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-2xl blur-2xl opacity-10 group-hover:opacity-25 transition duration-1000"></div>
+                <div class="relative rounded-3xl overflow-hidden glass-card border-white/10 transform transition-all duration-700 hover:rotate-y-6 hover:scale-[1.02] shadow-2xl">
+                    <img src="{{ asset('images/landingpage/monitor+student.png') }}" alt="Hologramme éducatif EduPulse" class="w-full object-cover" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#020617]/40 to-transparent"></div>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</section>
+</br>
+</br>
+</br>

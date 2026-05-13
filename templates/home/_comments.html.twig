@@ -1,0 +1,134 @@
+{# User Comments Section #}
+</br>
+<section id="comments" class="py-56 bg-[#020617] border-t border-white/5">
+    <div class="container mx-auto px-6">
+
+        <div class="flex flex-col md:flex-row justify-between items-center mb-32 gap-8">
+            <div>
+                <h2 class="text-4xl lg:text-6xl font-black text-white mb-6 tracking-tight">
+                    Ce que dit notre <span class="text-gradient italic">communauté</span>
+                </h2>
+                <p class="text-slate-400 text-xl font-light max-w-xl leading-relaxed" style="text-align: center;">
+
+                    Découvrez les retours d'expérience authentiques de nos utilisateurs.
+                </p>
+            </div>
+            <button
+                onclick="openCommentModal()"
+                class="flex-shrink-0 flex items-center gap-4 px-10 py-5 bg-indigo-600 hover:bg-indigo-500 text-white font-black text-lg rounded-2xl shadow-xl shadow-indigo-500/20 transition-all duration-300 hover:-translate-y-1">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
+                </svg>
+                Ajouter un commentaire
+            </button>
+        </div>
+        </br>
+        </br>
+        
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+            <div class="rounded-[2rem] border border-white/10 bg-slate-900/60 p-8 hover:border-indigo-500/40 transition-all duration-500 hover:-translate-y-2 shadow-xl">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-14 h-14 rounded-2xl bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 font-black text-lg">JD</div>
+                    <div>
+                        <h4 class="text-white font-bold text-lg leading-tight">Amin Sassi</h4>
+                        <p class="text-indigo-400 text-xs uppercase tracking-widest font-black mt-0.5">Étudiant</p>
+                    </div>
+                </div>
+                <p class="text-slate-300 leading-relaxed text-base italic">
+                    "La plateforme est intuitive et les cours sont de grande qualité. Le chat en temps réel change tout !"
+                </p>
+            </div>
+
+            <div class="rounded-[2rem] border border-white/10 bg-slate-900/60 p-8 hover:border-cyan-500/40 transition-all duration-500 hover:-translate-y-2 shadow-xl">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-14 h-14 rounded-2xl bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 font-black text-lg">ML</div>
+                    <div>
+                        <h4 class="text-white font-bold text-lg leading-tight">Hela Lfourati</h4>
+                        <p class="text-cyan-400 text-xs uppercase tracking-widest font-black mt-0.5">Développeuse Fullstack</p>
+                    </div>
+                </div>
+                <p class="text-slate-300 leading-relaxed text-base italic">
+                    "EduPulse m'a permis de me spécialiser en Symfony très rapidement grâce aux mentors disponibles."
+                </p>
+            </div>
+
+            <div class="rounded-[2rem] border border-white/10 bg-slate-900/60 p-8 hover:border-purple-500/40 transition-all duration-500 hover:-translate-y-2 shadow-xl">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-14 h-14 rounded-2xl bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400 font-black text-lg">RB</div>
+                    <div>
+                        <h4 class="text-white font-bold text-lg leading-tight">Bouchahwa oussema</h4>
+                        <p class="text-purple-400 text-xs uppercase tracking-widest font-black mt-0.5">Instructeur</p>
+                    </div>
+                </div>
+                <p class="text-slate-300 leading-relaxed text-base italic">
+                    "En tant que formateur, l'interaction avec les étudiants est grandement facilitée par les outils EduPulse."
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{# Comment Modal — uses style display none/flex to avoid Tailwind hidden/flex conflict #}
+<div id="comment-modal" style="display:none;position:fixed;inset:0;z-index:10000;align-items:center;justify-content:center;padding:1.5rem;background:rgba(0,0,0,0.9);">
+    <div style="background:#020617;border:2px solid rgba(99,102,241,0.4);border-radius:2.5rem;padding:3.5rem;width:100%;max-width:550px;box-shadow:0 30px 70px rgba(0,0,0,0.8);position:relative;">
+        <div class="flex justify-between items-center mb-10">
+            <h3 class="text-3xl font-black text-white tracking-tight">Partagez votre avis</h3>
+            <button onclick="closeCommentModal()" style="background:rgba(255,255,255,0.1);border:none;border-radius:1rem;padding:0.75rem;cursor:pointer;transition:all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="white" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <form class="space-y-8">
+            <div>
+                <label class="block text-slate-200 text-base font-black mb-3 uppercase tracking-[0.15em]">Nom complet</label>
+                <input type="text"
+                    style="width:100%;background:#0f172a;border:2px solid rgba(255,255,255,0.1);border-radius:1.25rem;padding:1.25rem 1.5rem;color:white;font-size:1.125rem;outline:none;box-sizing:border-box;transition:all 0.3s;"
+                    placeholder="Votre nom"
+                    onfocus="this.style.borderColor='#6366f1';this.style.background='#1e293b'" onblur="this.style.borderColor='rgba(255,255,255,0.1)';this.style.background='#0f172a'">
+            </div>
+            <div>
+                <label class="block text-slate-200 text-base font-black mb-3 uppercase tracking-[0.15em]">Commentaire</label>
+                <textarea rows="5"
+                    style="width:100%;background:#0f172a;border:2px solid rgba(255,255,255,0.1);border-radius:1.25rem;padding:1.25rem 1.5rem;color:white;font-size:1.125rem;outline:none;resize:vertical;box-sizing:border-box;transition:all 0.3s;line-height:1.6;"
+                    placeholder="Dites-nous ce que vous en pensez..."
+                    onfocus="this.style.borderColor='#6366f1';this.style.background='#1e293b'" onblur="this.style.borderColor='rgba(255,255,255,0.1)';this.style.background='#0f172a'"></textarea>
+            </div>
+            <div class="flex gap-6 pt-4">
+                <button type="button" onclick="closeCommentModal()"
+                    style="flex:1;padding:1.25rem;background:rgba(255,255,255,0.05);color:white;font-weight:900;border:2px solid rgba(255,255,255,0.1);border-radius:1.25rem;cursor:pointer;transition:all 0.3s;font-size:1.125rem;"
+                    onmouseover="this.style.background='rgba(255,255,255,0.1)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='rgba(255,255,255,0.05)';this.style.transform='translateY(0)'">
+                    Annuler
+                </button>
+                <button type="submit"
+                    style="flex:1;padding:1.25rem;background:#6366f1;color:white;font-weight:900;border:none;border-radius:1.25rem;cursor:pointer;box-shadow:0 10px 30px rgba(99,102,241,0.4);transition:all 0.3s;font-size:1.125rem;"
+                    onmouseover="this.style.background='#818cf8';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#6366f1';this.style.transform='translateY(0)'">
+                    Publier
+                </button>
+            </div>
+        </form>
+    </div>
+
+</div>
+</br>
+</br>
+</br>
+</br>
+
+<script>
+    function openCommentModal() {
+        const m = document.getElementById('comment-modal');
+        m.style.display = 'flex';
+    }
+    function closeCommentModal() {
+        const m = document.getElementById('comment-modal');
+        m.style.display = 'none';
+    }
+    // Close on backdrop click
+    document.getElementById('comment-modal').addEventListener('click', function(e) {
+        if (e.target === this) closeCommentModal();
+    });
+</script>

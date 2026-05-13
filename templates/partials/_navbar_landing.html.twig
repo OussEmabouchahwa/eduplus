@@ -20,6 +20,8 @@
         <a href="#courses"      onclick="scrollToSection('courses');return false;"      class="nav-link" style="padding:0.5rem 1rem;font-size:0.875rem;font-weight:600;color:#94a3b8;text-decoration:none;border-radius:0.75rem;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.color='white';this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.color='#94a3b8';this.style.background='transparent'">Catalogue</a>
         <a href="#stats"        onclick="scrollToSection('stats');return false;"        class="nav-link" style="padding:0.5rem 1rem;font-size:0.875rem;font-weight:600;color:#94a3b8;text-decoration:none;border-radius:0.75rem;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.color='white';this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.color='#94a3b8';this.style.background='transparent'">Statistiques</a>
         <a href="#testimonials" onclick="scrollToSection('testimonials');return false;" class="nav-link" style="padding:0.5rem 1rem;font-size:0.875rem;font-weight:600;color:#94a3b8;text-decoration:none;border-radius:0.75rem;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.color='white';this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.color='#94a3b8';this.style.background='transparent'">Témoignages</a>
+        <a href="#comments"     onclick="scrollToSection('comments');return false;"     class="nav-link" style="padding:0.5rem 1rem;font-size:0.875rem;font-weight:600;color:#94a3b8;text-decoration:none;border-radius:0.75rem;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.color='white';this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.color='#94a3b8';this.style.background='transparent'">Commentaires</a>
+
     </div>
 
     {# Right: Auth Buttons — always visible + Mobile burger #}
@@ -60,11 +62,12 @@
         <a href="#courses"      onclick="scrollToSection('courses');toggleMobileMenu();return false;"      style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;font-size:0.875rem;font-weight:600;color:#cbd5e1;text-decoration:none;border-radius:1rem;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">
             <img src="{{ asset('icons/coursecatloge-.png') }}" alt="" style="width:1.25rem;height:1.25rem;object-fit:contain;opacity:0.6;">Catalogue
         </a>
-        <a href="#stats"        onclick="scrollToSection('stats');toggleMobileMenu();return false;"        style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;font-size:0.875rem;font-weight:600;color:#cbd5e1;text-decoration:none;border-radius:1rem;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">
-            <img src="{{ asset('icons/Group_of_users_icon.png') }}" alt="" style="width:1.25rem;height:1.25rem;object-fit:contain;opacity:0.6;">Statistiques
+        <a href="#comments"     onclick="scrollToSection('comments');toggleMobileMenu();return false;"     style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;font-size:0.875rem;font-weight:600;color:#cbd5e1;text-decoration:none;border-radius:1rem;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">
+            <img src="{{ asset('icons/Group_of_users_icon.png') }}" alt="" style="width:1.25rem;height:1.25rem;object-fit:contain;opacity:0.6;">Commentaires
         </a>
     </div>
 </div>
+
 
 <style>
     /* Smooth scroll with navbar offset */
