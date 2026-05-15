@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Form\CourseType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -183,27 +184,34 @@ class AdminCourseController extends AbstractController
             throw $this->createAccessDeniedException();
         }
 
-        if ($request->isMethod('POST')) {
-            $title = $request->request->get('title');
-            if ($title) {
-                $course->setTitle($title);
-            }
+        $form = $this->createForm(CourseType::class, $course);
+        $form->handleRequest($request);
 
-            $imageFile = $request->files->get('image');
+        if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile = $form->get('imageFile')->getData();
+
             if ($imageFile) {
                 $newFilename = uniqid() . '.' . $imageFile->guessExtension();
-                $imageFile->move(
-                    $this->getParameter('kernel.project_dir') . '/public/uploads/courses',
-                    $newFilename
-                );
-                $course->setImagePath($newFilename);
+                try {
+                    $imageFile->move(
+                        $this->getParameter('kernel.project_dir') . '/public/uploads/courses',
+                        $newFilename
+                    );
+                    $course->setImagePath($newFilename);
+                } catch (\Exception $e) {
+                    $this->addFlash('error', 'Erreur lors de l\'upload de l\'image.');
+                }
             }
 
             $em->flush();
-            $this->addFlash('success', 'Cours mis à jour.');
+            $this->addFlash('success', 'Cours mis à jour avec succès !');
+
             return $this->redirectToRoute('app_admin_course_show', ['id' => $course->getId()]);
         }
 
-        return $this->render('admin/course/edit.html.twig', ['course' => $course]);
+        return $this->render('admin/course/edit.html.twig', [
+            'course' => $course,
+            'form' => $form->createView(),
+        ]);
     }
 }

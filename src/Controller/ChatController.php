@@ -85,15 +85,43 @@ class ChatController extends AbstractController
         EntityManagerInterface $em, 
         HubInterface $hub
     ): JsonResponse {
-        $data = json_decode($request->getContent(), true);
-        $content = $data['content'] ?? '';
+        $content = $request->request->get('content', '');
+        $file = $request->files->get('attachment');
 
-        if (empty($content)) return new JsonResponse(['error' => 'Message vide'], 400);
+        if (empty($content) && !$file) {
+            return new JsonResponse(['error' => 'Message vide'], 400);
+        }
 
         $message = new Message();
-        $message->setContent($content);
+        $message->setContent($content ?: '');
         $message->setAuthor($this->getUser());
         $message->setCourseId($courseId);
+
+        $attachmentData = null;
+        if ($file) {
+            $uploadDir = $this->getParameter('kernel.project_dir') . '/public/uploads/chat';
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+
+            $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $newFilename = uniqid() . '.' . $file->guessExtension();
+
+            try {
+                $file->move($uploadDir, $newFilename);
+                $message->setAttachmentPath($newFilename);
+                $message->setAttachmentName($file->getClientOriginalName());
+                $message->setAttachmentType($file->getMimeType());
+
+                $attachmentData = [
+                    'path' => $newFilename,
+                    'name' => $file->getClientOriginalName(),
+                    'type' => $file->getMimeType()
+                ];
+            } catch (\Exception $e) {
+                return new JsonResponse(['error' => 'Erreur lors de l\'upload'], 500);
+            }
+        }
 
         $em->persist($message);
         $em->flush();
@@ -104,7 +132,8 @@ class ChatController extends AbstractController
             json_encode([
                 'content' => $content,
                 'author' => $this->getUser()->getUserIdentifier(),
-                'createdAt' => $message->getCreatedAt()->format('H:i')
+                'createdAt' => $message->getCreatedAt()->format('H:i'),
+                'attachment' => $attachmentData
             ])
         );
         $hub->publish($update);

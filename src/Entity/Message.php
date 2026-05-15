@@ -29,6 +29,15 @@ class Message
     #[ORM\JoinColumn(nullable: false)]
     private ?User $author = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $attachmentPath = null;
+
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $attachmentType = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $attachmentName = null;
+
     public function __construct()
     {
         // On initialise la date automatiquement à la création du message
@@ -84,6 +93,42 @@ class Message
     public function setAuthor(?User $author): static
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getAttachmentPath(): ?string
+    {
+        return $this->attachmentPath;
+    }
+
+    public function setAttachmentPath(?string $attachmentPath): static
+    {
+        $this->attachmentPath = $attachmentPath;
+
+        return $this;
+    }
+
+    public function getAttachmentType(): ?string
+    {
+        return $this->attachmentType;
+    }
+
+    public function setAttachmentType(?string $attachmentType): static
+    {
+        $this->attachmentType = $attachmentType;
+
+        return $this;
+    }
+
+    public function getAttachmentName(): ?string
+    {
+        return $this->attachmentName;
+    }
+
+    public function setAttachmentName(?string $attachmentName): static
+    {
+        $this->attachmentName = $attachmentName;
 
         return $this;
     }

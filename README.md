@@ -13,34 +13,45 @@ EduPulse est une plateforme LMS (Learning Management System) hybride et ultra-mo
   <br><br>
   <table width="100%">
     <tr>
-      <td width="50%" align="center"><strong>Connexion</strong><br><img src="scrinshouts/login.png" alt="Login"></td>
-      <td width="50%" align="center"><strong>Inscription</strong><br><img src="scrinshouts/registerPage.png" alt="Register"></td>
+      <td width="33%" align="center"><strong>Connexion</strong><br><img src="scrinshouts/login.png" alt="Login"></td>
+      <td width="33%" align="center"><strong>Inscription</strong><br><img src="scrinshouts/registerPage.png" alt="Register"></td>
+      <td width="33%" align="center"><strong>Formulaire</strong><br><img src="scrinshouts/form%20inscription.png" alt="Inscription Form"></td>
     </tr>
   </table>
 </div>
 
 ### 👨‍💼 Panneau d'Administration
 <div align="center">
-  <p><strong>Tableau de bord Admin</strong></p>
+  <p><strong>Tableau de Bord Admin</strong></p>
   <img src="scrinshouts/dashbourd%20admin%20%20.png" alt="Admin Dashboard" width="800">
   <br><br>
   <table width="100%">
     <tr>
-      <td width="50%" align="center"><strong>Gestion des Utilisateurs</strong><br><img src="scrinshouts/gere%20les%20utilister%20from%20admin%20.png" alt="User Management"></td>
-      <td width="50%" align="center"><strong>Gestion des Cours</strong><br><img src="scrinshouts/see_courses_Section_from_admin_pannel.png" alt="Course Management"></td>
+      <td width="33%" align="center"><strong>Gestion Utilisateurs</strong><br><img src="scrinshouts/gere%20les%20utilister%20from%20admin%20.png" alt="User Management"></td>
+      <td width="33%" align="center"><strong>Gestion Cours</strong><br><img src="scrinshouts/see_courses_Section_from_admin_pannel.png" alt="Course Management"></td>
+      <td width="33%" align="center"><strong>Liste Enseignants</strong><br><img src="scrinshouts/liste_teatchers.png" alt="Teacher List"></td>
     </tr>
   </table>
 </div>
 
-### 🎓 Espace Professeur & Étudiant
+### 🎓 Espace Pédagogique
 <div align="center">
-  <p><strong>Dashboard Professeur</strong></p>
-  <img src="scrinshouts/dashbourd%20prof.png" alt="Teacher Dashboard" width="800">
-  <br><br>
+  <div style="display: flex; gap: 10px; justify-content: center;">
+    <div style="flex: 1; text-align: center;">
+      <p><strong>Dashboard Professeur</strong></p>
+      <img src="scrinshouts/dashbourd%20prof.png" alt="Teacher Dashboard" width="400">
+    </div>
+    <div style="flex: 1; text-align: center;">
+      <p><strong>Dashboard Étudiant</strong></p>
+      <img src="scrinshouts/dashboured%20studengt%20.png" alt="Student Dashboard" width="400">
+    </div>
+  </div>
+  <br>
   <table width="100%">
     <tr>
-      <td width="50%" align="center"><strong>Liste des Cours</strong><br><img src="scrinshouts/liste_Courses.png" alt="Course List"></td>
-      <td width="50%" align="center"><strong>Profil Utilisateur</strong><br><img src="scrinshouts/monProfilepage.png" alt="Profile Page"></td>
+      <td width="33%" align="center"><strong>Catalogue Cours</strong><br><img src="scrinshouts/liste_Courses.png" alt="Course List"></td>
+      <td width="33%" align="center"><strong>Gestion Matières</strong><br><img src="scrinshouts/gereunmatier.png" alt="Subject Management"></td>
+      <td width="33%" align="center"><strong>Mon Profil</strong><br><img src="scrinshouts/monProfilepage.png" alt="Profile Page"></td>
     </tr>
   </table>
 </div>
@@ -49,6 +60,9 @@ EduPulse est une plateforme LMS (Learning Management System) hybride et ultra-mo
 <div align="center">
   <p><strong>Messagerie en Temps Réel (Mercure)</strong></p>
   <img src="scrinshouts/messageSectionr.png" alt="Real-time Chat" width="800">
+  <br><br>
+  <p><strong>Infrastructure & Docker</strong></p>
+  <img src="scrinshouts/utilise%20douker%20.png" alt="Docker Usage" width="600">
 </div>
 
 ---
