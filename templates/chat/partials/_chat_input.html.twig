@@ -1,7 +1,7 @@
 {# Chat Input (Floating Pill) #}
-<div class="sticky bottom-6 left-0 right-0 z-40 mt-12 px-6" data-controller="chat-input">
+<div class="sticky bottom-6 left-0 right-0 z-40 mt-8 px-8 md:px-12" data-controller="chat-input">
     {# Attachment Preview #}
-    <div id="attachment-preview" class="hidden max-w-4xl mx-auto mb-4 p-4 bg-slate-900/60 backdrop-blur-xl border border-white/10 rounded-2xl flex items-center gap-4 animate-slide-up">
+    <div id="attachment-preview" class="hidden max-w-5xl mx-auto mb-4 p-4 bg-slate-900/60 backdrop-blur-xl border border-white/10 rounded-2xl flex items-center gap-4 animate-slide-up">
         <div class="w-12 h-12 bg-indigo-500/20 rounded-lg flex items-center justify-center text-indigo-400">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
         </div>
@@ -14,7 +14,7 @@
         </button>
     </div>
 
-    <div class="bg-slate-900/60 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] p-2.5 shadow-2xl shadow-indigo-500/5 max-w-4xl mx-auto flex items-end gap-3 ring-1 ring-white/5 group/input focus-within:ring-indigo-500/30 transition-all duration-500 relative">
+    <div class="bg-slate-900/60 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] p-2.5 shadow-2xl shadow-indigo-500/5 max-w-5xl mx-auto flex items-end gap-3 ring-1 ring-white/5 group/input focus-within:ring-indigo-500/30 transition-all duration-500 relative">
         {# Emoji Picker Container #}
         <div id="emoji-picker" class="hidden absolute bottom-full mb-4 left-0 z-50 animate-slide-up">
             <emoji-picker class="light"></emoji-picker>

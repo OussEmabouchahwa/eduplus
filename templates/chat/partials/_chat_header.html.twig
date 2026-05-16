@@ -1,46 +1,47 @@
-{# Chat Header (Premium Glass) #}
-<div class="h-20 px-8 border-b border-white/5 flex items-center justify-between z-30 shadow-sm relative overflow-hidden bg-slate-950/40 backdrop-blur-xl">
-    {# Subtle Course Brand Overlay #}
+{# Chat Header (Professional Dark) #}
+<div class="h-20 px-8 border-b border-white/5 flex items-center justify-between z-30 shadow-2xl relative overflow-hidden bg-slate-900">
+    {# Background Banner Restricted to Header #}
     {% if activeCourse.imagePath %}
         {% set activeImgSrc = activeCourse.imagePath starts with 'courses/' ? asset('images/' ~ activeCourse.imagePath) : asset('uploads/courses/' ~ activeCourse.imagePath) %}
-        <div class="absolute inset-0 pointer-events-none opacity-20">
-            <img src="{{ activeImgSrc }}" alt="" class="w-full h-full object-cover blur-2xl">
-            <div class="absolute inset-0 bg-slate-950/60"></div>
+        <div class="absolute inset-0 pointer-events-none">
+            <img src="{{ activeImgSrc }}" alt="" class="w-full h-full object-cover opacity-[0.05] blur-xl scale-125">
+            {# Nearly-opaque scrim to guarantee zero image text bleed #}
+            <div class="absolute inset-0 bg-slate-900/95"></div>
         </div>
     {% endif %}
 
-    <div class="flex items-center gap-5 relative z-10">
-        <div class="relative w-12 h-12 rounded-2xl overflow-hidden border border-white/10 shadow-2xl group cursor-pointer transition-transform hover:scale-105 active:scale-95">
-            <div class="w-full h-full bg-slate-800 flex items-center justify-center text-slate-400 font-black absolute inset-0">
+    <div class="flex items-center gap-4 relative z-10">
+        <div class="relative w-11 h-11 rounded-xl overflow-hidden border border-white/10 shadow-lg transition-transform hover:scale-105 active:scale-95">
+            <div class="w-full h-full bg-slate-800 flex items-center justify-center text-slate-400 font-bold absolute inset-0">
                 {{ activeCourse.title|first }}
             </div>
             {% if activeCourse.imagePath %}
-                <img src="{{ activeImgSrc }}" alt="" class="w-full h-full object-cover absolute inset-0 z-10 group-hover:scale-125 transition-transform duration-700 ease-in-out">
+                <img src="{{ activeImgSrc }}" alt="" class="w-full h-full object-cover absolute inset-0 z-10">
             {% endif %}
         </div>
         <div>
-            <h2 class="text-[17px] font-black text-white tracking-tighter leading-tight uppercase italic italic-10">{{ activeCourse.title }}</h2>
-            <div class="flex items-center gap-3 mt-1">
+            <h2 class="text-base font-bold text-white tracking-tight leading-tight uppercase drop-shadow-lg">{{ activeCourse.title }}</h2>
+            <div class="flex items-center gap-2.5 mt-0.5">
                 <div class="flex items-center gap-1.5 px-2 py-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded-md">
-                    <span class="flex h-1.5 w-1.5">
-                        <span class="animate-ping absolute inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative flex h-1.5 w-1.5">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
                     </span>
-                    <span class="text-[9px] font-black text-emerald-500 uppercase tracking-[0.1em]">Salon Actif</span>
+                    <span class="text-[9px] font-bold text-emerald-500 uppercase tracking-widest">Actif</span>
                 </div>
                 <span class="w-1 h-1 bg-slate-700 rounded-full"></span>
-                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">{{ activeCourse.students|length }} Étudiants</p>
+                <p class="text-[10px] text-slate-400 font-medium uppercase tracking-wider">{{ activeCourse.students|length }} Étudiants</p>
             </div>
         </div>
     </div>
     
-    <div class="flex items-center gap-4 relative z-10">
-        <button class="w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 text-slate-400 hover:text-white hover:bg-white/10 transition-all border border-white/5">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+    <div class="flex items-center gap-3 relative z-10">
+        <button title="Rechercher" class="w-9 h-9 flex items-center justify-center rounded-lg bg-white/5 text-slate-400 hover:text-white hover:bg-white/10 transition-all border border-white/5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
         </button>
         {% if is_granted('ROLE_ADMIN') or activeCourse.teacher == app.user %}
-            <a href="{{ path('app_admin_course_edit', {'id': activeCourse.id}) }}" class="px-5 py-2.5 rounded-xl bg-indigo-500 hover:bg-indigo-400 text-white shadow-lg shadow-indigo-500/20 transition-all text-[11px] font-black uppercase tracking-widest border border-indigo-400/20">
-                Gérer
+            <a href="{{ path('app_admin_course_edit', {'id': activeCourse.id}) }}" class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/10 transition-all text-[10px] font-bold uppercase tracking-widest">
+                Gérer le cours
             </a>
         {% endif %}
     </div>

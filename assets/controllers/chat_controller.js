@@ -11,7 +11,7 @@ export default class extends Controller {
     connect() {
         this.scrollToBottom();
 
-        // Connect to Mercure SSE Hub if url is present
+        // Connect to Mercure 
         if (this.hasHubUrlValue && this.hubUrlValue) {
             const url = new URL(this.hubUrlValue, window.location.origin);
             url.searchParams.append('topic', `https://edupulse.com/chat/${this.courseIdValue}`);
@@ -100,57 +100,67 @@ export default class extends Controller {
         }
         
         const messageDiv = document.createElement('div');
-        messageDiv.className = `flex ${isMe ? 'justify-end' : 'justify-start'} animate-fade-in group/msg`;
+        messageDiv.className = `flex ${isMe ? 'justify-end' : 'justify-start'} animate-fade-in group/msg relative mb-4`;
         
-        let authorHtml = '';
-        if (!isMe) {
-            authorHtml = `
-            <div class="w-10 h-10 rounded-2xl overflow-hidden mr-4 mt-auto border border-white/10 flex-shrink-0 shadow-lg bg-slate-800 flex items-center justify-center text-[10px] text-slate-400 font-bold uppercase">
-                ${data.author.substring(0, 2)}
+        const avatarHtml = `
+            <div class="flex-shrink-0 pt-0.5">
+                <div class="w-10 h-10 rounded-full overflow-hidden border border-white/10 shadow-lg bg-slate-800 flex items-center justify-center ring-2 ring-white/5">
+                    ${data.authorAvatar ? `<img src="/uploads/profiles/${data.authorAvatar}" class="w-full h-full object-cover">` : `<span class="text-[11px] text-slate-400 font-bold uppercase">${data.author.substring(0, 2)}</span>`}
+                </div>
             </div>`;
-        }
 
         const bubbleClass = isMe 
-            ? 'bg-indigo-600 text-white shadow-xl shadow-indigo-600/20 rounded-3xl rounded-br-lg' 
-            : 'bg-white/10 backdrop-blur-md text-slate-200 border border-white/5 shadow-xl rounded-3xl rounded-bl-lg';
+            ? 'bg-indigo-600/90 text-white shadow-lg' 
+            : 'bg-slate-800/80 text-slate-200 border border-white/[0.06] shadow-lg backdrop-blur-sm';
 
         let attachmentHtml = '';
         if (data.attachment) {
-            if (data.attachment.type.startsWith('image/')) {
+            const isImage = data.attachment.type && data.attachment.type.startsWith('image/');
+            if (isImage) {
                 const src = data.attachment.preview || `/uploads/chat/${data.attachment.path}`;
                 attachmentHtml = `
-                    <div class="mb-3 rounded-2xl overflow-hidden border border-white/10">
+                    <div class="mb-3 rounded-lg overflow-hidden border border-white/10 shadow-sm">
                         <img src="${src}" class="max-w-full max-h-64 object-cover" alt="Attachment">
                     </div>`;
             } else {
                 const path = data.attachment.path ? `/uploads/chat/${data.attachment.path}` : '#';
                 attachmentHtml = `
-                    <a href="${path}" target="_blank" class="flex items-center gap-3 mb-3 p-3 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
-                        <div class="w-10 h-10 bg-indigo-500/20 rounded-xl flex items-center justify-center text-indigo-400">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
+                    <a href="${path}" target="_blank" class="flex items-center gap-3 mb-3 p-3 bg-black/10 rounded-lg border border-white/5 hover:bg-black/20 transition-all group/file">
+                        <div class="w-10 h-10 bg-indigo-500/20 rounded-lg flex items-center justify-center text-indigo-400">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="text-xs font-bold text-white truncate">${data.attachment.name}</p>
-                            <p class="text-[10px] text-slate-500 uppercase">${data.attachment.type.split('/')[1]}</p>
+                            <p class="text-[9px] text-slate-400 uppercase font-bold tracking-wider">${data.attachment.type ? data.attachment.type.split('/')[1] : 'FILE'}</p>
                         </div>
                     </a>`;
             }
         }
 
-        let nameHtml = !isMe ? `<span class="text-[11px] text-slate-500 font-bold ml-1 mb-1.5">${data.author}</span>` : '';
-        const checkHtml = isMe ? `<svg class="w-3 h-3 text-indigo-400" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg>` : '';
+        const nameLabel = isMe ? 'Vous' : data.author;
+        const checkHtml = isMe ? `
+            <div class="flex justify-end mt-1 -mb-0.5">
+                <div class="flex items-center -space-x-1 opacity-50">
+                    <svg class="w-3.5 h-3.5 text-indigo-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                    <svg class="w-3.5 h-3.5 text-indigo-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+            </div>` : '';
+
+        const bubbleRounding = isMe ? 'rounded-2xl rounded-tr-md' : 'rounded-2xl rounded-tl-md';
 
         messageDiv.innerHTML = `
-            ${authorHtml}
-            <div class="flex flex-col ${isMe ? 'items-end' : 'items-start'} max-w-[75%]">
-                ${nameHtml}
-                <div class="${bubbleClass} p-5 transition-all hover:scale-[1.01] duration-300">
-                    ${attachmentHtml}
-                    <p class="text-[15.5px] leading-relaxed font-medium">${this.escapeHtml(data.content)}</p>
-                </div>
-                <div class="flex items-center gap-2 mt-2 mx-2">
-                    <span class="text-[10px] text-slate-600 font-bold uppercase tracking-widest">${data.createdAt}</span>
-                    ${checkHtml}
+            <div class="flex ${isMe ? 'flex-row-reverse' : 'flex-row'} items-start gap-3 max-w-[85%] md:max-w-[70%] lg:max-w-[65%]">
+                ${avatarHtml}
+                <div class="flex flex-col ${isMe ? 'items-end' : 'items-start'} min-w-0">
+                    <div class="flex items-baseline gap-2 mb-1 ${isMe ? 'flex-row-reverse' : ''}">
+                        <span class="text-[13px] font-bold text-white leading-none">${nameLabel}</span>
+                        <span class="text-[11px] text-slate-500 font-medium leading-none">${data.createdAt}</span>
+                    </div>
+                    <div class="relative ${bubbleClass} px-4 py-2.5 ${bubbleRounding} max-w-xl transition-all duration-300 shadow-xl">
+                        ${attachmentHtml}
+                        <p class="text-[14px] leading-relaxed font-medium whitespace-pre-wrap break-words">${this.escapeHtml(data.content)}</p>
+                        ${checkHtml}
+                    </div>
                 </div>
             </div>
         `;
