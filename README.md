@@ -1,4 +1,4 @@
-# EduPulse ⚡ - Modern Learning Management System
+# EduPulse ⚡ -  Modern Learning Management System
 
 EduPulse est une plateforme LMS (Learning Management System) hybride et ultra-moderne, conçue avec **Symfony 7** et **Tailwind CSS**. Elle offre une expérience utilisateur premium basée sur le **Glassmorphism**, permettant une gestion fluide des cours, des utilisateurs et des communications en temps réel.
 
